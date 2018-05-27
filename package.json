@@ -101,6 +101,8 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie <= 8"
+    "not ie <= 8",
+    "android > 4.1",
+    "ios >= 7"
   ]
 }
