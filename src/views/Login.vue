@@ -9,16 +9,16 @@
         <Form ref="loginForm" :model="form" :rules="rules">
           <FormItem prop="userName">
             <Input v-model="form.userName" placeholder="请输入用户名">
-            <span slot="prepend">
-            <Icon :size="16" type="person"></Icon>
-          </span>
+              <span slot="prepend">
+                <Icon :size="16" type="person"></Icon>
+            </span>
             </Input>
           </FormItem>
           <FormItem prop="password">
             <Input type="password" v-model="form.password" placeholder="请输入密码">
-            <span slot="prepend">
-            <Icon :size="14" type="locked"></Icon>
-          </span>
+              <span slot="prepend">
+              <Icon :size="14" type="locked"></Icon>
+            </span>
             </Input>
           </FormItem>
           <FormItem>
@@ -82,6 +82,9 @@ export default {
     width: 300px;
     height: 400px;
     margin: auto;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
   }
   .logo {
     /*font-size: 0;*/

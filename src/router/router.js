@@ -43,6 +43,7 @@ export const otherRouter = {
   }]
 }
 
+// 应用
 export const appRouter = [{
   path: '/access',
   icon: 'key',
@@ -56,6 +57,18 @@ export const appRouter = [{
     component: Login
   }]
 }, {
+  path: '/group',
+  icon: '',
+  name: 'group',
+  title: '用户管理',
+  component: Layout,
+  children: [{
+    path: 'index',
+    title: '用户列表',
+    name: 'group_index',
+    component: HelloWorld
+  }]
+}, {
   path: '/hello',
   name: 'Hello',
   component: Layout,
@@ -67,6 +80,7 @@ export const appRouter = [{
   }]
 }]
 
+// 错误提示
 export const errerPage = [{
   path: '/hello1',
   name: 'hello',
