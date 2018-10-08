@@ -100,7 +100,7 @@
                 错误页面
               </template>
               <router-link to="/404"><MenuItem name="5-1">404找不到页面</MenuItem></router-link>
-              <router-link to="/403"><MenuItem name="5-2">403无杼限页面</MenuItem></router-link>
+              <router-link to="/403"><MenuItem name="5-2">403无权限页面</MenuItem></router-link>
               <router-link to="/500"><MenuItem name="5-3">500服务异常</MenuItem></router-link>
             </Submenu>
           </Menu>
