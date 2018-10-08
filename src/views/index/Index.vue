@@ -4,9 +4,9 @@
       <Card :padding="0">
         <div class="info-card">
           <Col span="8" class="height-100" :style="{backgroundColor: 'blue', color: 'white', fontSize: '22px'}">
-          <Row type="flex" class="height-100" align="middle" justify="center">
-            <span>abc</span>
-          </Row>
+            <Row type="flex" class="height-100" align="middle" justify="center">
+              <span>abc</span>
+            </Row>
           </Col>
           <Col span="16" class="height-100">
             <Row type="flex" class="height-100" align="middle" justify="center">
@@ -48,20 +48,20 @@
       <Card :padding="0">
         <div class="info-card">
           <Col span="8" class="height-100" :style="{backgroundColor: 'blue', color: 'white', fontSize: '22px'}">
-          <Row type="flex" class="height-100" align="middle" justify="center">
-            <span>abc</span>
-          </Row>
+            <Row type="flex" class="height-100" align="middle" justify="center">
+              <span>abc</span>
+            </Row>
           </Col>
           <Col span="16" class="height-100">
-          <Row type="flex" class="height-100" align="middle" justify="center">
-            <count-up id-name="user_view"
-                      :end-val="count.view"
-                      color="#ff0000"
-                      :count-size="countSize"
-                      :count-weight="countWeight">
-              <p slot="intro">今日访客</p>
-            </count-up>
-          </Row>
+            <Row type="flex" class="height-100" align="middle" justify="center">
+              <count-up id-name="user_view"
+                        :end-val="count.view"
+                        color="#ff0000"
+                        :count-size="countSize"
+                        :count-weight="countWeight">
+                <p slot="intro">今日访客</p>
+              </count-up>
+            </Row>
           </Col>
         </div>
       </Card>
