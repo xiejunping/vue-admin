@@ -8,7 +8,7 @@
             <Icon type="android-lock"></Icon>
           </span>
           <span class="e-403-key">
-            <Icon type="ios-bolt" size="220"></Icon>
+            <Icon type="ios-flash" size="220" />
           </span>
         </div>
         <p class="e-403-msg">
@@ -17,8 +17,7 @@
         <div class="e-403-btn">
           <Button @click="goHome"
                   size="large"
-                  class="e-btn"
-                  type="ghost">返回首页</Button>
+                  class="e-btn">返回首页</Button>
           <Button @click="backPage"
                   size="large"
                   class="e-btn e-primary"

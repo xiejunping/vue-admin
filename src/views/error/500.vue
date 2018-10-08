@@ -5,18 +5,17 @@
         <div class="e-500-title">
           <span>5</span>
           <span class="e-500-0">
-            <Icon type="social-freebsd-devil"></Icon>
+            <Icon type="logo-freebsd-devil"></Icon>
           </span>
           <span class="e-500-0">
-            <Icon type="social-freebsd-devil"></Icon>
+            <Icon type="logo-freebsd-devil"></Icon>
           </span>
         </div>
         <p class="e-500-msg">Oops! The server is wrong</p>
         <div class="e-500-btn">
           <Button @click="goHome"
                   size="large"
-                  class="e-btn"
-                  type="ghost">返回首页</Button>
+                  class="e-btn">返回首页</Button>
           <Button @click="backPage"
                   size="large"
                   class="e-btn e-primary"

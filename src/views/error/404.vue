@@ -15,8 +15,7 @@
         <div class="e-404-btn">
           <Button @click="goHome"
                   size="large"
-                  class="e-btn"
-                  type="ghost">返回首页</Button>
+                  class="e-btn">返回首页</Button>
           <Button @click="backPage"
                   size="large"
                   class="e-btn e-primary"

@@ -1,19 +1,43 @@
 import HelloWorld from '@/components/HelloWorld'
 import Layout from '@/views/layout/Layout'
 import Login from '@/views/Login'
+import Message from '@/views/Message'
+import Setting from '@/views/user/Setting'
+import Profile from '@/views/user/Profile'
 import Index from '@/views/index/Index'
 import NotFound from '@/views/error/404'
 import NotArrow from '@/views/error/403'
 import ServerErr from '@/views/error/500'
 
-export const loginRouter = {
+export const loginRouter = [{
   path: '/login',
   name: 'Login',
   meta: {
     title: '登录'
   },
   component: Login
-}
+}, {
+  path: '/msg',
+  name: 'Message',
+  meta: {
+    title: '消息'
+  },
+  component: Message
+}, {
+  path: '/set',
+  name: 'Setting',
+  meta: {
+    title: '设置'
+  },
+  component: Setting
+}, {
+  path: '/profile',
+  name: 'Profile',
+  meta: {
+    title: '个人信息'
+  },
+  component: Profile
+}]
 
 export const otherRouter = {
   path: '/',
@@ -110,7 +134,7 @@ export const errerPage = [{
 }]
 
 export const routers = [
-  loginRouter,
+  ...loginRouter,
   otherRouter,
   ...appRouter,
   ...errerPage

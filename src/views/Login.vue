@@ -87,11 +87,11 @@ export default {
     border-radius: 5px;
   }
   .logo {
-    /*font-size: 0;*/
+    font-size: 0;
     margin: 0 auto;
     width: 160px;
     height: 74px;
-    /*background: url(../Layout/images/logo.png) no-repeat;*/
+    background: url(~@/assets/images/logo.png) center center no-repeat;
     background-size: contain;
   }
 </style>

@@ -31,6 +31,29 @@
               </MenuItem>
             </router-link>
           </div>
+
+          <div class="layout-profile">
+            <div class="message">
+              <Badge :count="3" :offset="[16, 0]">
+                <router-link to="/msg">
+                  <Icon type="ios-notifications" color="white" size=26 />
+                </router-link>
+              </Badge>
+            </div>
+            <Poptip v-model="visible" placement="bottom-end">
+              <Avatar style="margin-right: 8px" icon="ios-person" />
+              <Icon type="ios-arrow-down" color="white" />
+              <div slot="content">
+                <dl>
+                  <dd>aaaaaa</dd>
+                  <dd>aaaaaa</dd>
+                  <dd>aaaaaa</dd>
+                  <dd>aaaaaa</dd>
+                  <dd>aaaaaa</dd>
+                </dl>
+              </div>
+            </Poptip>
+          </div>
         </Menu>
       </Header>
 
@@ -102,7 +125,12 @@
 </template>
 <script>
 export default {
-  name: 'MainFrame'
+  name: 'MainFrame',
+  data () {
+    return {
+      visible: false
+    }
+  }
 }
 </script>
 <style scoped>
@@ -135,11 +163,22 @@ export default {
   }
 
   .layout-nav {
-    width: 441px;
+    width: 490px;
     margin: 0 auto;
-    margin-right: 20px;
+    margin-right: 120px;
   }
   .layout-nav a {
     color: white;
+  }
+
+  .layout-profile {
+    display: inline-block;
+    width: 120px;
+    float: right;
+  }
+  .layout-profile .message {
+    width: 50px;
+    display: inline-block;
+    text-align: left;
   }
 </style>
