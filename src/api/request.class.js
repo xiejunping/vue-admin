@@ -1,22 +1,11 @@
+import qs from 'qs'
 import axios from 'axios'
 import FormData from 'form-data'
-import config from './config'
+import { HOST_API, RES_CODE, STATE_CODE, MAX_CONTENT_LENGTH, XSRF_COOKIE, XSRF_HEADER } from './config'
+import { httpFaildHandle } from './handle'
 
-const HOST_API = config.baseurl
-const RES_CODE = config.resCode
-const STATE_CODE = 200
-const MAX_CONTENT_LENGTH = 20000
-
-const objToFormData = (obj) => {
-  const form = new FormData()
-
-  for (const key in obj) {
-    if ({}.hasOwnProperty.call(obj, key)) {
-      form.append(key, obj[key])
-    }
-  }
-  return form
-}
+const res = Symbol('res')
+const ser = Symbol('ser')
 
 export default class ReqClient {
   /**
@@ -27,15 +16,16 @@ export default class ReqClient {
    * @param {String} method 请求类型
    * @param {String} contentType 返回类型
    */
-  constructor ({url, data, timeout, method, contentType}) {
+  constructor ({url, data, params, timeout = 60000, method = 'GET', onUpload, onDown, cancel}) {
     this.url = url
     this.data = data
-    this.method = method || 'GET'
-    this.timeout = timeout || 60000
-    this.resType = contentType || 'json'
-    this.headers = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
+    this.method = method
+    this.timeout = timeout
+    this.resType = 'json'
+    this.onUpload = onUpload
+    this.onDown = onDown
+    this.cancel = cancel
+    this.headers = {}
 
     this.init()
   }
@@ -44,6 +34,10 @@ export default class ReqClient {
    * @return {Objcet} params
    */
   init () {
+    // 手动取消请求
+    const CancelToken = axios.CancelToken
+    this.source = CancelToken.source()
+
     this.option = {
       baseURL: HOST_API,
       url: this.url,
@@ -51,15 +45,26 @@ export default class ReqClient {
       data: this.data,
       timeout: this.timeout,
       headers: this.headers,
-      withCredentials: false,
+      withCredentials: true,
       responseType: this.resType,
       onUploadProgress: this.onUpload,
       onDownloadProgress: this.onDown,
-      validateStatus: status => {
-        return status >= 200 && status < 300
-      },
+      cancelToke: this.source.token,
+      xsrfCookieName: XSRF_COOKIE,
+      xsrfHeaderName: XSRF_HEADER,
       maxContentLength: MAX_CONTENT_LENGTH
     }
+  }
+
+  [ser] (obj) {
+    const form = new FormData()
+
+    for (const key in obj) {
+      if ({}.hasOwnProperty.call(obj, key)) {
+        form.append(key, obj[key])
+      }
+    }
+    return form
   }
 
   /**
@@ -67,11 +72,12 @@ export default class ReqClient {
    * @param response
    * @returns {Promise<*>}
    */
-  async handleResponse (response) {
+  async [res] (response, Serialization) {
     // HTTP状态码不正确
     if (response.status !== STATE_CODE) httpFaildHandle(response)
     else {
       if (response.data.code !== RES_CODE) throw new Error(response.data.msg)
+      else if (Serialization) return JSON.parse(response.data)
       else return response.data
     }
   }
@@ -84,8 +90,10 @@ export default class ReqClient {
     this.option.headers = Object.assign({}, {
       'Content-Type': 'application/json'
     }, this.option.headers)
+    this.option.data = JSON.stringify(this.option.data)
     const response = await axios.request(this.option)
-    const data = await this.handleResponse(response)
+
+    const data = await this[res](response, true)
     return data
   }
 
@@ -94,10 +102,13 @@ export default class ReqClient {
    * @returns {Promise<*>}
    */
   async reqData () {
-    this.option.params = this.option.data
+    this.option.headers = Object.assign({}, {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }, this.option.headers)
+    this.option.data = qs.stringify(this.option.data)
     const response = await axios.request(this.option)
 
-    const data = await this.handleResponse(response)
+    const data = await this[res](response)
     return data
   }
 
@@ -106,10 +117,13 @@ export default class ReqClient {
    * @returns {Promise<*>}
    */
   async reqFormData () {
-    this.option.params = objToFormData(this.option.data)
+    this.option.headers = Object.assign({}, {
+      'Content-Type': 'multipart/form-data'
+    }, this.option.headers)
+    this.option.params = this[ser](this.option.data)
     const response = await axios.request(this.option)
 
-    const data = await this.handleResponse(response)
+    const data = await this[res](response)
     return data
   }
 }

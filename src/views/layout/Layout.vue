@@ -148,6 +148,7 @@ export default {
     height: 100%;
   }
   .ivu-layout-header {
+    min-width: 1024px;
     padding-right: 25px;
   }
 
@@ -180,5 +181,9 @@ export default {
     width: 50px;
     display: inline-block;
     text-align: left;
+  }
+
+  .layout-content-main {
+    min-width: 824px;
   }
 </style>

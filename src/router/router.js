@@ -133,7 +133,7 @@ export const errerPage = [{
   component: NotFound
 }]
 
-export const routers = [
+export const routes = [
   ...loginRouter,
   otherRouter,
   ...appRouter,

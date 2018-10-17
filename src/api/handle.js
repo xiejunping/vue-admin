@@ -7,8 +7,6 @@ export function httpFaildHandle(res) {
   } else if (res.status) {
 
   }
-
-
 }
 
 export function handleError(msg) {

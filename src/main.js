@@ -5,7 +5,7 @@ import store from './store'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import '@/assets/font/iconfont.css'
-import '@/common/styles/index.styl'
+import '@/common/styles/index'
 
 Vue.config.productionTip = false
 Vue.use(iView)
