@@ -21,7 +21,6 @@ export default class ReqClient {
     this.data = data
     this.method = method
     this.timeout = timeout
-    this.resType = 'json'
     this.onUpload = onUpload
     this.onDown = onDown
     this.cancel = cancel
@@ -46,7 +45,6 @@ export default class ReqClient {
       timeout: this.timeout,
       headers: this.headers,
       withCredentials: true,
-      responseType: this.resType,
       onUploadProgress: this.onUpload,
       onDownloadProgress: this.onDown,
       cancelToke: this.source.token,
