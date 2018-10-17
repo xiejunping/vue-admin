@@ -5,6 +5,7 @@ import iView from 'iview'
 import Util from '@/common/lib/util'
 import { routes } from './router'
 import { loginName, homeName } from './config'
+import { XSRF_COOKIE } from '@/api/config'
 
 Vue.use(Router)
 
@@ -50,7 +51,7 @@ const turnTo = (to, access, next) => {
 }
 
 router.beforeEach((to, from, next) => {
-  const token = Util.getToken()
+  const token = Util.getCookie(XSRF_COOKIE)
 
   iView.LoadingBar.start()
   Util.title(to.meta.title)

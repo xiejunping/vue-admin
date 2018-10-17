@@ -1,7 +1,19 @@
 import ReqClient from './request.class'
-import {handleError} from './handle'
 
-export async function getUserList() {
+const signIn = async (params) => {
+  const Req = new ReqClient({
+    url: '/user/login',
+    data: params,
+    method: 'POST'
+  })
+  try {
+    return await Req.reqData()
+  } catch (e) {
+    Req.handleError(e)
+  }
+}
+
+const getUserList = async (params) => {
   const Req = new ReqClient({
     url: '',
     data: params
@@ -9,6 +21,8 @@ export async function getUserList() {
   try {
     return await Req.reqData()
   } catch (e) {
-    handleError(e)
+    Req.handleError(e)
   }
 }
+
+export default { signIn, getUserList }

@@ -38,8 +38,8 @@ export default {
   data () {
     return {
       form: {
-        userName: 'admin',
-        password: ''
+        userName: 'cabber',
+        password: 'U2FsdGVkX19Go0gRVmnFipB3nNsG33uLLLDHNDT+vZg='
       },
       rules: {
         username: [{
@@ -50,7 +50,7 @@ export default {
         password: [{
           required: true,
           message: '密码为6-20个字母或数字或组合',
-          max: 20,
+          max: 50,
           min: 6,
           trigger: 'blur'
         }]
@@ -61,9 +61,18 @@ export default {
     handlerSubmit () {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.$router.push('index')
+          this.signIn()
         }
       })
+    },
+    async signIn () {
+      const data = await this.fetch.signIn({
+        username: this.form.userName,
+        password: this.form.password
+      })
+      if (data) {
+        this.$router.push('index')
+      }
     }
   },
   components: {
