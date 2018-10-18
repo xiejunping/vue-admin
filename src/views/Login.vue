@@ -32,14 +32,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Particle from '@/components/Particle'
 export default {
   name: 'login',
   data () {
     return {
       form: {
-        userName: 'kim',
-        password: 'U2FsdGVkX19Go0gRVmnFipB3nNsG33uLLLDHNDT+vZg='
+        userName: 'cabber', // 'kim',
+        password: ''
       },
       rules: {
         username: [{
@@ -70,13 +71,13 @@ export default {
       })
     },
     async signIn () {
-      const data = this.handleLogin({
+      const data = await this.handleLogin({
         username: this.form.userName,
-        password: this.form.password
+        password: this.util.aesEncrypt(this.form.password)
       })
-
       if (data) {
-        this.getUserInfo()
+        const info = await this.getUserInfo()
+        if (info) this.$router.push({name: 'index'})
       }
     }
   },

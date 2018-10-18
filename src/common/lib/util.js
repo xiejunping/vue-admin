@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
-import { COOKIE_EXPIRES } from '@/api/config'
+import CryptoJS from 'crypto-js'
+import { COOKIE_EXPIRES, SECRET_KEY } from '@/api/config'
 
 let util = {
   title: (title = '登录') => {
@@ -18,6 +19,10 @@ let util = {
   },
   getCookie: key => {
     return Cookies.get(key)
+  },
+  aesEncrypt: content => {
+    const ciphertext = CryptoJS.AES.encrypt(content.toString(), SECRET_KEY)
+    return ciphertext.toString()
   }
 }
 

@@ -40,7 +40,8 @@ export default {
         username,
         password
       })
-      commit('setToken', data.token)
+      if (data) commit('setToken', data.token)
+      return data
     },
     // 退出登录
     async handleLogOut ({ state, commit }) {
@@ -50,6 +51,7 @@ export default {
         commit('setToken', '')
         commit('setAccess', [])
       }
+      return data
     },
     // 获取用户相关信息
     async getUserInfo ({ state, commit }) {
@@ -59,9 +61,10 @@ export default {
         commit('setAvator', data.avator)
         commit('setUserName', data.name)
         commit('setUserId', data.id)
-        commit('setAccess', data.roles)
+        commit('setAccess', data.roles || [])
         commit('setHasGetInfo', true)
       }
+      return data
     }
   }
 }

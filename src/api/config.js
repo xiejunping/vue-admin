@@ -1,5 +1,5 @@
 const test = {
-  baseurl: 'http://localhost:5000',
+  baseurl: 'https://www.jsvue.cn/api', // 'http://localhost:5000',
   ossPath: '',
   resPath: ''
 }
@@ -16,6 +16,7 @@ export const HOST_API = config.baseurl
 export const RES_CODE = 0
 export const STATE_CODE = 200
 export const MAX_CONTENT_LENGTH = 20000
-export const XSRF_COOKIE = 'abc' // XSRF-TOKEN
+export const XSRF_COOKIE = 'XSRF-TOKEN'
 export const XSRF_HEADER = 'X-XSRF-TOKEN'
+export const SECRET_KEY = 'WAPMAN'
 export const COOKIE_EXPIRES = 1
