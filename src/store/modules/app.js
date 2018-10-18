@@ -1,4 +1,4 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 
 const app = {
   state: {
@@ -12,7 +12,9 @@ const app = {
     messageCount: 0
   },
   mutations: {
-    setTagsList() {},
-    pageOpenedList() {}
+    setTagsList () {},
+    pageOpenedList () {}
   }
 }
+
+export default app

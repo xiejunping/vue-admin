@@ -13,6 +13,28 @@ const signIn = async (params) => {
   }
 }
 
+const signOut = async () => {
+  const Req = new ReqClient({
+    url: '/user/logout'
+  })
+  try {
+    return await Req.reqData()
+  } catch (e) {
+    Req.handleError(e)
+  }
+}
+
+const prefile = async () => {
+  const Req = new ReqClient({
+    url: '/user/info'
+  })
+  try {
+    return await Req.reqData()
+  } catch (e) {
+    Req.handleError(e)
+  }
+}
+
 const getUserList = async (params) => {
   const Req = new ReqClient({
     url: '',
@@ -25,4 +47,4 @@ const getUserList = async (params) => {
   }
 }
 
-export default { signIn, getUserList }
+export default { signIn, signOut, prefile, getUserList }

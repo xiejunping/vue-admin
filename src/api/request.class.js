@@ -1,12 +1,12 @@
 import qs from 'qs'
 import axios from 'axios'
+import store from '@/store'
 import FormData from 'form-data'
 import { Message } from 'iview'
 import { HOST_API, RES_CODE, STATE_CODE, MAX_CONTENT_LENGTH, XSRF_COOKIE, XSRF_HEADER } from './config'
 
 const res = Symbol('res')
 const ser = Symbol('ser')
-const bar = Symbol('bar')
 
 export default class ReqClient {
   /**
@@ -51,8 +51,14 @@ export default class ReqClient {
       cancelToke: this.source.token,
       xsrfCookieName: XSRF_COOKIE,
       xsrfHeaderName: XSRF_HEADER,
+      validateStatus: function (status) {
+        return status >= 200 && status < 600
+      },
       maxContentLength: MAX_CONTENT_LENGTH
     }
+
+    // xsrfHeader
+    XSRF_HEADER && (this.option.headers[XSRF_HEADER] = store.state.token)
   }
 
   [ser] (obj) {
@@ -66,46 +72,6 @@ export default class ReqClient {
     return form
   }
 
-  [bar] (response) {
-    console.log(response)
-    // 请求错误
-    if (!response) {
-      Message.error({
-        showClose: true,
-        message: '网络错误，请刷新重试！'
-      })
-      return
-    }
-    const { status, data } = response
-
-    switch (status) {
-      case 200:
-        Message.error({ message: data.msg })
-        break
-      case 403:
-        Message.error({ message: '服务器拒绝请求！' })
-        break
-      case 404:
-        Message.error({ message: '服务器找不到请求！' })
-        break
-      case 500:
-        Message.error({ message: '服务器出错了！' })
-        break
-      case 502:
-        Message.error({ message: '服务器跑路了⊙﹏⊙！' })
-        break
-      case 503:
-        Message.error({ message: '服务器宕机了-_-。sorry！' })
-        break
-      case 504:
-        Message.error({ message: '服务器没有反应了！' })
-        break
-      default:
-        Message.error({ message: '网络错误!' })
-        break
-    }
-  }
-
   /**
    * 接口数据请求回调
    * @param response
@@ -115,9 +81,10 @@ export default class ReqClient {
     // HTTP状态码不正确
     if (response.status !== STATE_CODE) throw response
     else {
-      if (response.data.code !== RES_CODE) throw response
-      else if (Serialization) return JSON.parse(response.data)
-      else return response.data
+      const body = Serialization ? JSON.parse(response.data) : response.data
+
+      if (body.code !== RES_CODE) throw response
+      else return body.data
     }
   }
 
@@ -166,8 +133,43 @@ export default class ReqClient {
     return data
   }
 
-  handleError (e) {
-    alert(e)
+  handleError (response) {
+    // 请求错误
+    if (!response) {
+      Message.error({
+        showClose: true,
+        message: '网络错误，请刷新重试！'
+      })
+      return
+    }
+    const { status, data } = response
+
+    switch (status) {
+      case 200:
+        Message.error({ content: data.msg })
+        break
+      case 403:
+        Message.error({ content: '服务器拒绝请求！' })
+        break
+      case 404:
+        Message.error({ content: '服务器找不到请求！' })
+        break
+      case 500:
+        Message.error({ content: '服务器出错了！' })
+        break
+      case 502:
+        Message.error({ content: '服务器跑路了⊙﹏⊙！' })
+        break
+      case 503:
+        Message.error({ content: '服务器宕机了-_-。sorry！' })
+        break
+      case 504:
+        Message.error({ content: '服务器没有反应了！' })
+        break
+      default:
+        Message.error({ content: '网络错误!' })
+        break
+    }
   }
 
   cancel () {

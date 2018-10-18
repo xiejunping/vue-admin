@@ -38,7 +38,7 @@ export default {
   data () {
     return {
       form: {
-        userName: 'cabber',
+        userName: 'kim',
         password: 'U2FsdGVkX19Go0gRVmnFipB3nNsG33uLLLDHNDT+vZg='
       },
       rules: {
@@ -58,6 +58,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'handleLogin',
+      'getUserInfo'
+    ]),
     handlerSubmit () {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
@@ -66,12 +70,13 @@ export default {
       })
     },
     async signIn () {
-      const data = await this.fetch.signIn({
+      const data = this.handleLogin({
         username: this.form.userName,
         password: this.form.password
       })
+
       if (data) {
-        this.$router.push('index')
+        this.getUserInfo()
       }
     }
   },
