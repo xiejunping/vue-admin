@@ -13,7 +13,8 @@ export const loginRouter = [{
   path: '/login',
   name: 'Login',
   meta: {
-    title: '登录'
+    title: '登录',
+    hideInMenu: true
   },
   component: Login
 }, {
@@ -47,22 +48,36 @@ export const otherRouter = {
   children: [{
     path: 'index',
     name: 'index',
-    title: '首页',
+    meta: {
+      title: '首页',
+      hideInMenu: true,
+      notCache: true,
+      icon: ''
+    },
     component: Index
   }, {
     path: 'manger',
     name: 'manger',
-    title: '平台管理',
+    meta: {
+      title: '平台管理',
+      icon: ''
+    },
     component: NotArrow
   }, {
     path: 'open',
     name: 'open',
-    title: '开放平台',
+    meta: {
+      title: '开放平台',
+      icon: ''
+    },
     component: NotFound
   }, {
     path: 'user',
     name: 'user',
-    title: '个人中心',
+    meta: {
+      title: '个人中心',
+      icon: ''
+    },
     component: ServerErr
   }]
 }
@@ -72,11 +87,17 @@ export const appRouter = [{
   path: '/access',
   icon: 'key',
   name: 'access',
-  title: '权限管理',
+  meta: {
+    title: '权限管理',
+    icon: ''
+  },
   component: Layout,
   children: [{
     path: 'index',
-    title: '权限管理',
+    meta: {
+      title: '权限管理',
+      icon: ''
+    },
     name: 'access_index',
     component: Login
   }]
@@ -84,11 +105,17 @@ export const appRouter = [{
   path: '/group',
   icon: '',
   name: 'group',
-  title: '用户管理',
+  meta: {
+    title: '用户管理',
+    icon: ''
+  },
   component: Layout,
   children: [{
     path: 'index',
-    title: '用户列表',
+    meta: {
+      title: '用户列表',
+      icon: ''
+    },
     name: 'group_index',
     component: HelloWorld
   }]
@@ -98,7 +125,10 @@ export const appRouter = [{
   component: Layout,
   children: [{
     path: 'index',
-    title: 'HelloWorld',
+    meta: {
+      title: 'HelloWorld',
+      icon: ''
+    },
     name: 'hello_index',
     component: HelloWorld
   }]
@@ -108,7 +138,10 @@ export const appRouter = [{
 export const errerPage = [{
   path: '/hello1',
   name: 'hello',
-  title: 'Hello World',
+  meta: {
+    title: 'Hello World',
+    icon: ''
+  },
   component: Index
 }, {
   path: '/500',
