@@ -17,27 +17,6 @@ export const loginRouter = [{
     hideInMenu: true
   },
   component: Login
-}, {
-  path: '/msg',
-  name: 'Message',
-  meta: {
-    title: '消息'
-  },
-  component: Message
-}, {
-  path: '/set',
-  name: 'Setting',
-  meta: {
-    title: '设置'
-  },
-  component: Setting
-}, {
-  path: '/profile',
-  name: 'Profile',
-  meta: {
-    title: '个人信息'
-  },
-  component: Profile
 }]
 
 export const otherRouter = {
@@ -52,7 +31,7 @@ export const otherRouter = {
       title: '首页',
       hideInMenu: true,
       notCache: true,
-      icon: ''
+      icon: 'ios-navigate'
     },
     component: Index
   }, {
@@ -60,23 +39,23 @@ export const otherRouter = {
     name: 'manger',
     meta: {
       title: '平台管理',
-      icon: ''
+      icon: 'ios-keypad'
     },
     component: NotArrow
   }, {
-    path: 'open',
-    name: 'open',
+    path: 'docs',
+    name: 'docs',
     meta: {
-      title: '开放平台',
-      icon: ''
+      title: '文档中心',
+      icon: 'ios-analytics'
     },
     component: NotFound
   }, {
-    path: 'user',
-    name: 'user',
+    path: 'help',
+    name: 'help',
     meta: {
-      title: '个人中心',
-      icon: ''
+      title: '客服帮助',
+      icon: 'ios-paper'
     },
     component: ServerErr
   }]
@@ -122,6 +101,10 @@ export const appRouter = [{
 }, {
   path: '/hello',
   name: 'Hello',
+  meta: {
+    title: 'Hello',
+    icon: ''
+  },
   component: Layout,
   children: [{
     path: 'index',
@@ -131,6 +114,39 @@ export const appRouter = [{
     },
     name: 'hello_index',
     component: HelloWorld
+  }]
+}, {
+  path: '/set',
+  name: 'Setting',
+  component: Layout,
+  meta: {
+    title: '用户设置',
+    icon: ''
+  },
+  children: [{
+    path: 'index',
+    meta: {
+      title: '设置',
+      icon: ''
+    },
+    name: 'set_index',
+    component: Setting
+  }, {
+    path: 'msg',
+    name: 'Message',
+    meta: {
+      title: '消息',
+      icon: ''
+    },
+    component: Message
+  }, {
+    path: 'profile',
+    name: 'Profile',
+    meta: {
+      title: '个人信息',
+      icon: ''
+    },
+    component: Profile
   }]
 }]
 

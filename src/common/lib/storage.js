@@ -2,7 +2,7 @@ let ls = window.localStorage
 let ss = window.sessionStorage
 
 export const setLocal = (key, value) => {
-  if (ls && arguments.length === 2) {
+  if (ls && key && value) {
     if (typeof value === 'object') {
       value = JSON.stringify(value)
       value = 'obj-' + value
@@ -37,7 +37,7 @@ export const clearLocal = () => {
 }
 
 export const setSession = (key, value) => {
-  if (ss && arguments.length === 2) {
+  if (ss && key && value) {
     if (typeof value === 'object') {
       value = JSON.stringify(value)
       value = 'obj-' + value

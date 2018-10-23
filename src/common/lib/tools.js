@@ -26,7 +26,6 @@ export const doCustomTimes = (times, callback) => {
 
 export const getRouteTitleHandled = route => {
   let router = {...route}
-  console.log(route)
   let meta = {...route.meta}
   if (meta.title && typeof meta.title === 'function') meta.title = meta.title(router)
   router.meta = meta
@@ -63,4 +62,35 @@ export const getHomeRoute = (routers, homeName = 'home') => {
     }
   }
   return homeRoute
+}
+
+/**
+ * @param {*} list 现有标签导航列表
+ * @param {*} newRoute 新添加的路由原信息对象
+ * @description 如果该newRoute已经存在则不再添加
+ */
+export const getNewTagList = (list, newRoute) => {
+  const newList = [...list]
+  const { name, path, meta } = newRoute
+
+  if (newList.findIndex(item => item.name === name) < 0) {
+    newList.push({ name, path, meta })
+  }
+  return newList
+}
+
+/**
+ * @param {Array} list 标签列表
+ * @param {String} name 当前关闭的标签的name
+ */
+export const getNextRoute = (list, route) => {
+  let res = {}
+  if (list.length === 2) {
+    res = getHomeRoute(list)
+  } else {
+    const index = list.findIndex(item => routeEqual(item, route))
+    if (index === list.length - 1) res = list[list.length - 2]
+    else res = list[index + 1]
+  }
+  return res
 }
