@@ -3,6 +3,7 @@
     <!-- top -->
     <header-bar :list="topMenu">
       <div class="layout-profile" slot="profile">
+        <full-screen v-model="isFullscreen" />
         <div class="message" @click="turnToPage('Message')">
           <Badge :count="3" :offset="[16, 0]">
             <Icon type="ios-notifications" color="white" size=26 />
@@ -84,6 +85,7 @@ import { mapMutations } from 'vuex'
 import { getNewTagList, routeEqual, getNextRoute } from '@/common/lib/tools'
 
 import HeaderBar from './components/header-bar/header-bar'
+import FullScreen from './components/header-bar/full-screen/full-screen'
 import Perfile from './components/perfile/perfile'
 import NavTags from './components/nav-tags/nav-tags'
 
@@ -93,10 +95,11 @@ export default {
   name: 'MainFrame',
   mixins: [ mixin ],
   components: {
-    HeaderBar, Perfile, NavTags
+    HeaderBar, FullScreen, Perfile, NavTags
   },
   data () {
     return {
+      isFullscreen: null,
       isCollapsed: null,
       current: '1',
       topMenu: this.$store.state.app.routes.filter(ret => ret.name === 'otherRouter')[0].children
@@ -168,16 +171,14 @@ export default {
     padding-right: 25px;
   }
 
-  .layout-profile {
-    display: inline-block;
-    width: 120px;
-    float: right;
-  }
-  .layout-profile .message {
-    width: 50px;
-    display: inline-block;
-    text-align: left;
-  }
+  .layout-profile
+    display inline-block
+    width 153px
+    float right
+    .message
+      width 50px
+      display inline-block
+      text-align left
 
  .layout-content-menu {
     background: #fff;

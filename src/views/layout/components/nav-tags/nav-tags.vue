@@ -17,8 +17,8 @@
   </div>
 </template>
 <script>
-import beforeClose from '@/router/before-close'
 import mixin from '../../mixin'
+import beforeClose from '@/router/before-close'
 import { routeEqual } from '@/common/lib/tools'
 export default {
   name: 'nav-tags',
