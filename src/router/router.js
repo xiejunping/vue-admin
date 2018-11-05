@@ -11,7 +11,7 @@ import ServerErr from '@/views/error/500'
 
 export const loginRouter = [{
   path: '/login',
-  name: 'Login',
+  name: 'login',
   meta: {
     title: '登录',
     hideInMenu: true

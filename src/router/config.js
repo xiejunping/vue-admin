@@ -1,2 +1,2 @@
-export const loginName = 'Login'
+export const loginName = 'login'
 export const homeName = 'index'
