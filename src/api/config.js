@@ -5,7 +5,7 @@ const test = {
 }
 
 const prod = {
-  baseurl: '',
+  baseurl: 'https://www.jsvue.cn/api',
   ossPath: '',
   resPath: ''
 }

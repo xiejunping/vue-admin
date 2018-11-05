@@ -4,6 +4,7 @@
     <div class="main">
       <header>
         <h1 class="logo">admin</h1>
+        <h3 class="logo-title">Vue-admin 后台管理系统</h3>
       </header>
       <section>
         <Form ref="loginForm" :model="form" :rules="rules">
@@ -88,6 +89,9 @@ export default {
 </script>
 
 <style scoped>
+  header {
+    padding: 10px 0;
+  }
   .main {
     position: absolute;
     top: 0;
@@ -95,9 +99,9 @@ export default {
     bottom: 0;
     right: 0;
     width: 300px;
-    height: 400px;
+    height: 340px;
     margin: auto;
-    padding: 10px;
+    padding: 20px;
     background-color: white;
     border-radius: 5px;
   }
@@ -108,5 +112,14 @@ export default {
     height: 74px;
     background: url(~@/assets/images/logo.png) center center no-repeat;
     background-size: contain;
+  }
+
+  .logo-title {
+    font-size: 18px;
+    line-height: 60px;
+  }
+
+  .ivu-form-item {
+    margin-bottom: 20px;
   }
 </style>

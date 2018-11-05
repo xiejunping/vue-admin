@@ -20,7 +20,7 @@
           <Icon type="md-medal"/>
           <span> 积分中心</span>
         </dd>
-        <dd>
+        <dd @click="signOut">
           <Icon type="md-log-out"/>
           <span> 退出账户</span>
         </dd>
@@ -29,10 +29,21 @@
   </Poptip>
 </template>
 <script>
+import { mapActions } from 'vuex'
+import { loginName } from '@/router/config'
 export default {
   name: 'perfile',
   data () {
     return {
+    }
+  },
+  methods: {
+    ...mapActions([
+      'handleLogOut'
+    ]),
+    async signOut () {
+      const data = await this.handleLogOut()
+      data && this.$router.push(loginName)
     }
   }
 }
