@@ -6,19 +6,23 @@
           class="c-nav"
           v-for="(item, index) in list"
           :key="`tag-nav-${index}`"
-          :name="item.name">
+          :name="item.name"
+          @click="handleClick(item)">
           <i :class="['c-dot', isCurrentTag(item) ? 'active' : '']"></i>
           {{item.meta.title}}
-          <Icon type="md-close" class="c-close" />
+          <Icon v-if="index" type="md-close" class="c-close" @click.stop="handleClose(item)" />
         </div>
       </transition-group>
     </div>
   </div>
 </template>
 <script>
+import beforeClose from '@/router/before-close'
+import mixin from '../../mixin'
 import { routeEqual } from '@/common/lib/tools'
 export default {
   name: 'nav-tags',
+  mixins: [ mixin ],
   props: {
     value: Object,
     list: {
@@ -37,6 +41,24 @@ export default {
   methods: {
     isCurrentTag (item) {
       return routeEqual(this.currentRouteObj, item)
+    },
+    handleClose (current) {
+      if (current.meta && current.meta.beforeCloseName && current.meta.beforeCloseName in beforeClose) {
+        new Promise(beforeClose[current.meta.beforeCloseName]).then(close => {
+          if (close) {
+            this.close(current)
+          }
+        })
+      } else {
+        this.close(current)
+      }
+    },
+    close (route) {
+      let res = this.list.filter(item => !routeEqual(route, item))
+      this.$emit('on-close', res, undefined, route)
+    },
+    handleClick (item) {
+      this.turnToPage(item)
     }
   }
 }

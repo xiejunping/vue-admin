@@ -67,7 +67,7 @@
           <BreadcrumbItem>Layout</BreadcrumbItem>
         </Breadcrumb>-->
 
-        <nav-tags :value="$route" @input="handleClick" :list="tagNavList"></nav-tags>
+        <nav-tags :value="$route" :list="tagNavList" @on-close="handleCloseTag"></nav-tags>
 
         <!-- 组件 -->
         <Content class="layout-content-body" :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
@@ -81,7 +81,7 @@
 </template>
 <script>
 import { mapMutations } from 'vuex'
-import { getNewTagList } from '@/common/lib/tools'
+import { getNewTagList, routeEqual, getNextRoute } from '@/common/lib/tools'
 
 import HeaderBar from './components/header-bar/header-bar'
 import Perfile from './components/perfile/perfile'
@@ -118,8 +118,19 @@ export default {
       'setTagNavList',
       'addTag'
     ]),
-    handleClick () {
-
+    handleCloseTag (res, type, route) {
+      if (type === 'all') {
+        this.turnToPage('home')
+      } else if (routeEqual(this.$route, route)) {
+        // 关闭的页签存在
+        if (type === 'others') {
+        } else {
+          const nextRoute = getNextRoute(this.tagNavList, route)
+          console.log(nextRoute)
+          this.$router.push(nextRoute)
+        }
+      }
+      this.setTagNavList(res)
     }
   },
   watch: {

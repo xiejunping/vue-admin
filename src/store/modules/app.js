@@ -69,7 +69,7 @@ export default {
       route = tag[0] || null
       if (!route) return
       if (route.meta && route.meta.beforeCloseName && route.meta.beforeCloseName in beforeClose) {
-        new Promise().then(res => {
+        new Promise(beforeClose[route.meta.beforeCloseName]).then(res => {
           res && closePage(state, route)
         })
       } else closePage(state, route)
