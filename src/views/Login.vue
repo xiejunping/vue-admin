@@ -7,7 +7,7 @@
         <h3 class="logo-title">Vue-admin 后台管理系统</h3>
       </header>
       <section>
-        <Form ref="loginForm" :model="form" :rules="rules">
+        <Form ref="loginForm" :model="form" :rules="rules" @keydown.enter.native="handlerSubmit">
           <FormItem prop="userName">
             <Input v-model="form.userName" placeholder="请输入用户名">
               <span slot="prepend">

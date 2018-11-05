@@ -30,6 +30,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import { loginName } from '@/router/config'
 export default {
   name: 'perfile',
   data () {
@@ -42,7 +43,7 @@ export default {
     ]),
     async signOut () {
       const data = await this.handleLogOut()
-      data && this.$router.push({path: '/'})
+      data && this.$router.push(loginName)
     }
   }
 }
