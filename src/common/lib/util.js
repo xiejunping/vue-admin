@@ -34,6 +34,9 @@ let util = {
   hasOneOf: (targetarr, arr) => {
     return targetarr.some(_ => arr.indexOf(_) > -1)
   },
+  hasChild: (item) => {
+    return item.children && item.children.length !== 0
+  },
   setCookie: (key, val, expires) => {
     Cookies.set(key, val, { expires: expires || COOKIE_EXPIRES })
   },

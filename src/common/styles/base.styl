@@ -11,6 +11,26 @@ body, html
   color: $CtColor
 
 .collapsed-menu
+  .ivu-menu-submenu
+    ul
+      position absolute
+      z-index 100
+      background #fff
+      left 100%
+      top 0
+      display none
+      border solid 1px #ebebeb
+      border-left none
+      li
+        border-top solid 1px #efefef
+        &:first-child
+          border-top none
+    &:hover
+      ul
+        display block
+  .ivu-menu-submenu-title
+    span
+      font-size 0
   .ivu-menu-submenu-title-icon
     font-size: 0
 

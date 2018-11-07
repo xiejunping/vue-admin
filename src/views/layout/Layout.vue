@@ -16,49 +16,10 @@
     <!-- main -->
     <Layout class="layout-content">
       <!-- left -->
-      <Sider class="layout-content-menu" v-model="isCollapsed" collapsible>
-        <Menu active-name="1-2" theme="light" @on-select="turnToPage" width="auto" :open-names="['1']" :class="menuitemClasses">
-          <Submenu name="1">
-            <template slot="title">
-              <Icon type="ios-navigate"></Icon>
-              <span>组件</span>
-            </template>
-            <MenuItem name="access_index"><span>From表单</span></MenuItem>
-            <MenuItem name="1-2"><span>Card卡片</span></MenuItem>
-            <MenuItem name="1-3"><span>Layer布局</span></MenuItem>
-          </Submenu>
-          <MenuItem name="access_index">
-            <Icon type="ios-keypad"></Icon>
-            <span>权限管理</span>
-          </MenuItem>
-          <Submenu name="3">
-            <template slot="title">
-              <Icon type="ios-analytics"></Icon>
-              <span>用户管理</span>
-            </template>
-            <MenuItem name="group_index"><span>用户列表</span></MenuItem>
-            <MenuItem name="3-3"><span>复制用户</span></MenuItem>
-            <MenuItem name="3-2"><span>删除用户</span></MenuItem>
-          </Submenu>
-          <Submenu name="4">
-            <template slot="title">
-              <Icon type="ios-analytics"></Icon>
-              <span>文章管理</span>
-            </template>
-            <router-link to="/hello/index"><MenuItem name="4-1"><span>文章发布</span></MenuItem></router-link>
-            <router-link to="/"><MenuItem name="4-2"><span>工作流</span></MenuItem></router-link>
-          </Submenu>
-          <Submenu name="5">
-            <template slot="title">
-              <Icon type="flash-off"></Icon>
-              <span>错误页面</span>
-            </template>
-            <router-link to="/404"><MenuItem name="5-1"><span>404找不到页面</span></MenuItem></router-link>
-            <router-link to="/403"><MenuItem name="5-2"><span>403无权限页面</span></MenuItem></router-link>
-            <router-link to="/500"><MenuItem name="5-3"><span>500服务异常</span></MenuItem></router-link>
-          </Submenu>
-        </Menu>
+      <Sider class="layout-content-menu" v-model="collapsed" collapsible>
+        <side-menu :menu-list="menuList" :collapsed="collapsed"></side-menu>
       </Sider>
+
       <!-- right -->
       <Layout class="layout-content-main" :style="{padding: '0 24px 24px'}">
         <!-- 面包屑
@@ -85,6 +46,7 @@ import { mapMutations } from 'vuex'
 import { getNewTagList, routeEqual, getNextRoute } from '@/common/lib/tools'
 
 import HeaderBar from './components/header-bar/header-bar'
+import SideMenu from './components/side-menu/side-menu'
 import FullScreen from './components/header-bar/full-screen/full-screen'
 import Perfile from './components/perfile/perfile'
 import NavTags from './components/nav-tags/nav-tags'
@@ -95,12 +57,12 @@ export default {
   name: 'MainFrame',
   mixins: [ mixin ],
   components: {
-    HeaderBar, FullScreen, Perfile, NavTags
+    HeaderBar, SideMenu, FullScreen, Perfile, NavTags
   },
   data () {
     return {
       isFullscreen: null,
-      isCollapsed: null,
+      collapsed: null,
       current: '1',
       topMenu: this.$store.state.app.routes.filter(ret => ret.name === 'otherRouter')[0].children
     }
@@ -109,11 +71,11 @@ export default {
     tagNavList () {
       return this.$store.state.app.tagNavList
     },
+    menuList () {
+      return this.$store.getters.menuList
+    },
     cacheList () {
       return this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : []
-    },
-    menuitemClasses () {
-      return ['menu-item', this.isCollapsed ? 'collapsed-menu' : '']
     }
   },
   methods: {
@@ -157,63 +119,35 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
-  .layout {
-    background: #f5f7f9;
-    position: relative;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .ivu-layout, .layout {
-    height: 100%;
-  }
-  .ivu-layout-header {
-    min-width: 1024px;
-    padding-right: 25px;
-  }
+.layout
+  background #f5f7f9
+  position relative
+  border-radius 4px
+  overflow hidden
+.layout-content-menu
+  background #fff
+  text-align left
+.layout-content-main
+  min-width 824px
 
-  .layout-profile
-    display inline-block
-    width 153px
-    float right
-    .message
-      width 50px
-      display inline-block
-      text-align left
+.ivu-layout
+  &.layout
+    height 100%
+.ivu-layout-header
+  min-width 1024px
+  padding-right 25px
 
- .layout-content-menu {
-    background: #fff;
-    text-align: left;
-  }
-  .layout-content-main {
-    min-width: 824px;
-  }
-
-  .menu-item span{
-    display: inline-block;
-    overflow: hidden;
-    width: 69px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    vertical-align: bottom;
-    transition: width .2s ease .2s;
-  }
-  .menu-item i {
-    transition: font-size .2s ease;
-    vertical-align: middle;
-    font-size: 16px;
-  }
-  .collapsed-menu span{
-    width: 0px;
-    transition: width .2s ease;
-  }
-  .collapsed-menu i {
-    transition: font-size .2s ease .2s;
-    font-size: 22px;
-  }
-
+.layout-profile
+  display inline-block
+  width 153px
+  float right
   .message
+    width 50px
     cursor: pointer
+    display inline-block
+    text-align left
     .ivu-icon
       &:hover
         background-color #5b6270
+
 </style>

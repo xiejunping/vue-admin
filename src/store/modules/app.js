@@ -9,7 +9,8 @@ import {
   getRouteTitleHandled,
   getHomeRoute,
   routeEqual,
-  getNextRoute } from '@/common/lib/tools'
+  getNextRoute,
+  getMenuByRouter } from '@/common/lib/tools'
 import Util from '@/common/lib/util'
 
 const closePage = (state, route) => {
@@ -33,6 +34,9 @@ export default {
     // 选项卡
     tagNavList: [],
     messageCount: 0
+  },
+  getters: {
+    menuList: (state, getters, rootState) => getMenuByRouter(routes, rootState.user.access)
   },
   mutations: {
     setTagsList () {},

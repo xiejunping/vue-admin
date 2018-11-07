@@ -22,6 +22,9 @@ export const loginRouter = [{
 export const otherRouter = {
   path: '/',
   name: 'otherRouter',
+  meta: {
+    hideInMenu: true
+  },
   redirect: '/index',
   component: Layout,
   children: [{
@@ -68,14 +71,14 @@ export const appRouter = [{
   name: 'access',
   meta: {
     title: '权限管理',
-    icon: ''
+    icon: 'ios-analytics'
   },
   component: Layout,
   children: [{
     path: 'index',
     meta: {
       title: '权限管理',
-      icon: ''
+      icon: 'ios-navigate'
     },
     name: 'access_index',
     component: Login
@@ -86,14 +89,14 @@ export const appRouter = [{
   name: 'group',
   meta: {
     title: '用户管理',
-    icon: ''
+    icon: 'ios-navigate'
   },
   component: Layout,
   children: [{
     path: 'index',
     meta: {
       title: '用户列表',
-      icon: ''
+      icon: 'ios-navigate'
     },
     name: 'group_index',
     component: HelloWorld
@@ -103,14 +106,14 @@ export const appRouter = [{
   name: 'Hello',
   meta: {
     title: 'Hello',
-    icon: ''
+    icon: 'ios-navigate'
   },
   component: Layout,
   children: [{
     path: 'index',
     meta: {
       title: 'HelloWorld',
-      icon: ''
+      icon: 'ios-navigate'
     },
     name: 'hello_index',
     component: HelloWorld
@@ -121,13 +124,13 @@ export const appRouter = [{
   component: Layout,
   meta: {
     title: '用户设置',
-    icon: ''
+    icon: 'ios-navigate'
   },
   children: [{
     path: 'index',
     meta: {
       title: '设置',
-      icon: ''
+      icon: 'ios-navigate'
     },
     name: 'set_index',
     component: Setting
@@ -136,7 +139,7 @@ export const appRouter = [{
     name: 'Message',
     meta: {
       title: '消息',
-      icon: ''
+      icon: 'ios-navigate'
     },
     component: Message
   }, {
@@ -144,7 +147,7 @@ export const appRouter = [{
     name: 'Profile',
     meta: {
       title: '个人信息',
-      icon: ''
+      icon: 'ios-navigate'
     },
     component: Profile
   }]
@@ -156,28 +159,31 @@ export const errerPage = [{
   name: 'hello',
   meta: {
     title: 'Hello World',
-    icon: ''
+    icon: 'ios-navigate'
   },
   component: Index
 }, {
   path: '/500',
   name: 'error-500',
   meta: {
-    title: '500-服务器出错'
+    title: '500-服务器出错',
+    icon: 'ios-navigate'
   },
   component: ServerErr
 }, {
   path: '/403',
   name: 'error-403',
   meta: {
-    title: '403-权限不足'
+    title: '403-权限不足',
+    icon: 'ios-navigate'
   },
   component: NotArrow
 }, {
   path: '/*',
   name: 'error-404',
   meta: {
-    title: '404-页面不存在'
+    title: '404-页面不存在',
+    icon: 'ios-navigate'
   },
   component: NotFound
 }]
