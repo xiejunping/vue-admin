@@ -61,6 +61,9 @@ export default class ReqClient {
     XSRF_HEADER && (this.option.headers[XSRF_HEADER] = store.state.token)
   }
 
+  /**
+   * 表单数据处理
+   */
   [ser] (obj) {
     const form = new FormData()
 
@@ -83,8 +86,14 @@ export default class ReqClient {
     else {
       const body = Serialization ? JSON.parse(response.data) : response.data
 
-      if (body.code !== RES_CODE) throw response
-      else return body.data
+      if (body.code !== RES_CODE) {
+        // 登录失效后退出登录状态
+        if (body.code === 110) {
+          store.commit('setToken', '')
+          store.commit('setAccess', [])
+        }
+        throw response
+      } else return body.data
     }
   }
 
