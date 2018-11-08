@@ -21,7 +21,7 @@
       </Sider>
 
       <!-- right -->
-      <Layout class="layout-content-main" :style="{padding: '0 24px 24px'}">
+      <Layout class="layout-content-main">
         <!-- 面包屑
         <Breadcrumb class="layout-content-position" :style="{margin: '24px 0', textAlign: 'left'}">
           <BreadcrumbItem>Home</BreadcrumbItem>
@@ -32,11 +32,13 @@
         <nav-tags :value="$route" :list="tagNavList" @on-close="handleCloseTag"></nav-tags>
 
         <!-- 组件 -->
-        <Content class="layout-content-body" :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-          <keep-alive :max="50" :include="cacheList">
-            <router-view/>
-          </keep-alive>
-        </Content>
+        <div class="layout-content-body">
+          <Content :style="{padding: '24px', height: 'inherit', background: '#fff'}">
+            <keep-alive :max="50" :include="cacheList">
+              <router-view/>
+            </keep-alive>
+          </Content>
+        </div>
       </Layout>
     </Layout>
   </Layout>
@@ -85,10 +87,11 @@ export default {
     ]),
     handleCloseTag (res, type, route) {
       if (type === 'all') {
-        this.turnToPage('home')
+        this.turnToPage(route)
       } else if (routeEqual(this.$route, route)) {
         // 关闭的页签存在
         if (type === 'others') {
+          console.log(res, type, route)
         } else {
           const nextRoute = getNextRoute(this.tagNavList, route)
           console.log(nextRoute)
@@ -129,6 +132,9 @@ export default {
   text-align left
 .layout-content-main
   min-width 824px
+  .layout-content-body
+    height 100%
+    padding 15px
 
 .ivu-layout
   &.layout

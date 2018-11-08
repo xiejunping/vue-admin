@@ -9,7 +9,7 @@
     @on-open-change="changeOpen"
     :class="menuitemClasses">
     <template v-for="item in menuList">
-      <template v-if="item.children && item.children.length > 1">
+      <template v-if="item.children && item.children.length">
         <Submenu :name="item.name" :key="`menu-${item.name}`">
           <template slot="title">
             <Icon :type="item.icon"></Icon>
