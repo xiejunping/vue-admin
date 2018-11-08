@@ -91,11 +91,10 @@ export default {
       } else if (routeEqual(this.$route, route)) {
         // 关闭的页签存在
         if (type === 'others') {
-          console.log(res, type, route)
         } else {
           const nextRoute = getNextRoute(this.tagNavList, route)
           console.log(nextRoute)
-          this.$router.push(nextRoute)
+          this.turnToPage(nextRoute)
         }
       }
       this.setTagNavList(res)

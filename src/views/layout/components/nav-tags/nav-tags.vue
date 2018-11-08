@@ -191,7 +191,7 @@ export default {
       left 0
     &.btn-right
       right 32px
-      border solid 1px #efefef
+      border-right solid 1px #efefef
   .c-tag
     position absolute
     z-index 92
