@@ -1,4 +1,4 @@
-// import Model from '@/api'
+import Model from '@/api'
 import router from '@/router'
 import { routes } from '@/router/router'
 import { homeName } from '@/router/config'
@@ -10,7 +10,8 @@ import {
   getHomeRoute,
   routeEqual,
   getNextRoute,
-  getMenuByRouter } from '@/common/lib/tools'
+  getMenuByRouter,
+  getChildMenu } from '@/common/lib/tools'
 import Util from '@/common/lib/util'
 
 const closePage = (state, route) => {
@@ -33,12 +34,23 @@ export default {
     breadCrumbList: [],
     // 选项卡
     tagNavList: [],
-    messageCount: 0
+    messageCount: 0,
+    hasGetAuthMenu: false,
+    currentModule: ''
   },
   getters: {
-    menuList: (state, getters, rootState) => getMenuByRouter(routes, rootState.user.access)
+    menuList: (state, getters, rootState) => getMenuByRouter(getChildMenu(state.routes, state.currentModule), rootState.user.access)
   },
   mutations: {
+    setHasGetAuthMenu (state, status) {
+      state.hasGetAuthMenu = status
+    },
+    setCurrentModule (state, routeName) {
+      state.currentModule = routeName
+    },
+    setRoutes (state, routes) {
+      state.routes = routes
+    },
     setTagsList () {},
     setTagNavList (state, list) {
       let tagList = []
@@ -79,5 +91,17 @@ export default {
       } else closePage(state, route)
     },
     pageOpenedList () {}
+  },
+  actions: {
+    // 获取用户的路由表
+    async getAuthMenu ({ state, commit }) {
+      const data = await Model.authMenu()
+
+      if (data) {
+        commit('setCurrentModule', 'admin') // data[0].name
+        commit('setHasGetAuthMenu', true)
+      }
+      return data
+    }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <Header class="layout-header">
-    <Menu mode="horizontal" theme="dark" active-name="index" @on-select="turnToPage">
+    <Menu mode="horizontal" theme="dark" :active-name="currentModule" @on-select="changeMenu">
       <div class="layout-logo"></div>
 
       <!-- 顶部菜单 -->
@@ -16,10 +16,9 @@
 </template>
 
 <script>
-import mixin from '../../mixin'
+import { mapMutations } from 'vuex'
 export default {
   name: 'headerBar',
-  mixins: [ mixin ],
   props: {
     value: Object,
     list: {
@@ -27,6 +26,19 @@ export default {
       default () {
         return []
       }
+    }
+  },
+  computed: {
+    currentModule () {
+      return this.$store.state.app.currentModule
+    }
+  },
+  methods: {
+    ...mapMutations([
+      'setCurrentModule'
+    ]),
+    changeMenu (name) {
+      this.setCurrentModule(name)
     }
   }
 }
@@ -46,7 +58,7 @@ export default {
 .layout-nav
   width: 490px
   margin: 0 auto
-  margin-right: 120px
+  margin-right: 153px
   a
     color: white
 </style>

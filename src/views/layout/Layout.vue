@@ -66,7 +66,7 @@ export default {
       isFullscreen: null,
       collapsed: null,
       current: '1',
-      topMenu: this.$store.state.app.routes.filter(ret => ret.name === 'otherRouter')[0].children
+      topMenu: this.$store.state.app.routes.filter(ret => !ret.meta.hideInMenu && ret.meta.level === 0)
     }
   },
   computed: {

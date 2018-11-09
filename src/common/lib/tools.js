@@ -101,9 +101,9 @@ export const getNextRoute = (list, route) => {
  */
 const showThisMenuEle = (item, access) => {
   if (item.meta && item.meta.access && item.meta.access.length) {
-    if (Util.hasOneOf(item.meta.access, access)) return true
-    else return false
-  } else return true
+    return Util.hasOneOf(item.meta.access, access)
+  }
+  return true
 }
 export const getMenuByRouter = (list, access) => {
   let res = []
@@ -125,4 +125,41 @@ export const getMenuByRouter = (list, access) => {
     }
   })
   return res
+}
+
+export const getChildMenu = (routes, name) => {
+  let child = []
+
+  if (!Util.isArray(routes)) return
+  for (let i = 0; i < routes.length; i++) {
+    const item = routes[i]
+    if (item.name === name) {
+      child = item.children
+      break
+    } else if (Util.hasChild(item)) {
+      child = getChildMenu(item.children, name)
+      if (child && child.length) break
+    }
+  }
+  return child
+}
+
+export const findToName = (routes, path) => {
+  let paths = path.split('/')
+  if (!Util.isArray(routes) || !Util.isArray(paths)) return
+
+  paths.shift()
+  console.log(paths)
+  if (paths[0]) {
+    let meta = routes.filter(ret => ret.path === `/${paths[0]}`)
+
+    if (paths[1] && meta[0] && meta[0].children) {
+      let item = meta[0].children.filter(ret => ret.path === paths[1])
+
+      if (paths[2] && item[0] && item[0].children) {
+        return item[0].children.filter(ret => ret.path === paths[2])[0]
+      } else return item[0]
+    } else return meta[0]
+  }
+  return false
 }

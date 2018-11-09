@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import store from '@/store'
 import iView from 'iview'
 import Util from '@/common/lib/util'
-import { routes } from './router'
+// import { findToName } from '@/common/lib/tools'
+import { routes, errerPage, appRouter } from './router'
 import { loginName, homeName } from './config'
 import { XSRF_COOKIE } from '@/api/config'
 
@@ -44,10 +45,47 @@ const canTurnTo = (name, access, routes) => {
   return routePermissionJudge(routes)
 }
 
-const turnTo = (to, access, next) => {
+const turnTo = (to, access, next, routes) => {
+  console.log(to, routes)
   // 通过用户权限和跳转的页面的name来判断是否有权限访问
+  // if (!to.name) {
+  //   to = Object.assign({}, to, {name: findToName(routes, to.path).name})
+  //   console.log(to)
+  // }
   if (canTurnTo(to.name, access, routes)) next() // 有权限，可访问
   else next({ replace: true, name: 'error-403' })
+}
+
+const formatAsyncRoutes = (routes, appRoutes) => {
+  return new Promise(resolve => {
+    const allRoutes = [
+      ...routes,
+      ...appRoutes,
+      ...errerPage
+    ]
+    // 追加路由
+    router.addRoutes(allRoutes)
+    store.commit('setRoutes', allRoutes)
+    resolve(allRoutes)
+  })
+}
+
+const initMenu = (to, access, next) => {
+  // 动态请求菜单选项
+  if (store.state.app.hasGetAuthMenu) {
+    turnTo(to, access, next, store.state.app.routes)
+  } else {
+    store.dispatch('getAuthMenu').then(data => {
+      return formatAsyncRoutes(routes, appRouter)
+    }).then(newRoutes => {
+      turnTo(to, access, next, newRoutes)
+    }).catch((err) => {
+      console.log(err)
+      next({
+        name: loginName
+      })
+    })
+  }
 }
 
 router.beforeEach((to, from, next) => {
@@ -71,11 +109,11 @@ router.beforeEach((to, from, next) => {
     })
   } else {
     if (store.state.user.hasGetInfo) {
-      turnTo(to, store.state.user.access, next)
+      initMenu(to, store.state.user.access, next)
     } else {
       store.dispatch('getUserInfo').then(user => {
         // access必须是一个数组，如：['super_admin'] ['super_admin', 'admin']
-        turnTo(to, user.access, next)
+        initMenu(to, user.access, next)
       }).catch(() => {
         next({
           name: loginName

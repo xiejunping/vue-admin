@@ -17,12 +17,11 @@ export const loginRouter = [{
     hideInMenu: true
   },
   component: Login
-}]
-
-export const otherRouter = {
+}, {
   path: '/',
-  name: 'otherRouter',
+  name: 'layout',
   meta: {
+    title: 'Vue-admin 后台管理系统',
     hideInMenu: true
   },
   redirect: '/index',
@@ -32,142 +31,149 @@ export const otherRouter = {
     name: 'index',
     meta: {
       title: '首页',
-      hideInMenu: true,
-      notCache: true,
-      icon: 'ios-navigate'
+      notCache: true
     },
     component: Index
-  }, {
-    path: 'manger',
-    name: 'manger',
-    meta: {
-      title: '平台管理',
-      icon: 'ios-keypad'
-    },
-    component: NotArrow
-  }, {
-    path: 'docs',
-    name: 'docs',
-    meta: {
-      title: '文档中心',
-      icon: 'ios-analytics'
-    },
-    component: NotFound
-  }, {
-    path: 'help',
-    name: 'help',
-    meta: {
-      title: '客服帮助',
-      icon: 'ios-paper'
-    },
-    component: ServerErr
   }]
-}
+}]
 
 // 应用
 export const appRouter = [{
-  path: '/access',
-  icon: 'key',
-  name: 'access',
+  path: '/admin',
+  name: 'admin',
   meta: {
-    title: '权限管理',
-    icon: 'ios-analytics'
+    title: '管理中心',
+    icon: 'ios-navigate',
+    level: 0
   },
-  component: Layout,
   children: [{
-    path: 'index',
+    path: 'access',
+    icon: 'key',
+    name: 'access',
     meta: {
       title: '权限管理',
-      icon: 'ios-navigate'
+      icon: 'ios-analytics'
     },
-    name: 'access_index',
-    component: Login
-  }]
-}, {
-  path: '/group',
-  icon: '',
-  name: 'group',
-  meta: {
-    title: '用户管理',
-    icon: 'ios-navigate'
-  },
-  component: Layout,
-  children: [{
-    path: 'index',
-    meta: {
-      title: '用户列表',
-      icon: 'ios-navigate'
-    },
-    name: 'group_index',
-    component: HelloWorld
-  }]
-}, {
-  path: '/hello',
-  name: 'Hello',
-  meta: {
-    title: 'Hello',
-    icon: 'ios-navigate'
-  },
-  component: Layout,
-  children: [{
-    path: 'index',
-    meta: {
-      title: 'HelloWorld',
-      icon: 'ios-navigate'
-    },
-    name: 'hello_index',
-    component: HelloWorld
-  }]
-}, {
-  path: '/set',
-  name: 'Setting',
-  component: Layout,
-  meta: {
-    title: '用户设置',
-    icon: 'ios-navigate'
-  },
-  children: [{
-    path: 'index',
-    meta: {
-      title: '设置',
-      icon: 'ios-navigate'
-    },
-    name: 'set_index',
-    component: Setting
+    component: HelloWorld,
+    children: [{
+      path: 'index',
+      meta: {
+        title: '权限管理',
+        icon: 'ios-navigate' // access: ['super']
+      },
+      name: 'access_index',
+      component: Login
+    }]
   }, {
-    path: 'msg',
-    name: 'Message',
+    path: 'group',
+    icon: '',
+    name: 'group',
     meta: {
-      title: '消息',
+      title: '用户管理',
       icon: 'ios-navigate'
     },
-    component: Message
+    component: HelloWorld,
+    children: [{
+      path: 'index',
+      meta: {
+        title: '用户列表',
+        icon: 'ios-navigate'
+      },
+      name: 'group_index',
+      component: HelloWorld
+    }]
   }, {
-    path: 'profile',
-    name: 'Profile',
+    path: 'hello',
+    name: 'Hello',
     meta: {
-      title: '个人信息',
+      title: 'Hello',
       icon: 'ios-navigate'
     },
-    component: Profile
-  }]
+    component: HelloWorld,
+    children: [{
+      path: 'index',
+      meta: {
+        title: 'HelloWorld',
+        icon: 'ios-navigate'
+      },
+      name: 'hello_index',
+      component: HelloWorld
+    }]
+  }, {
+    path: 'set',
+    name: 'Setting',
+    component: HelloWorld,
+    meta: {
+      title: '用户设置',
+      icon: 'ios-navigate'
+    },
+    children: [{
+      path: 'index',
+      meta: {
+        title: '设置',
+        icon: 'ios-navigate'
+      },
+      name: 'set_index',
+      component: Setting
+    }, {
+      path: 'msg',
+      name: 'Message',
+      meta: {
+        title: '消息',
+        icon: 'ios-navigate'
+      },
+      component: Message
+    }, {
+      path: 'profile',
+      name: 'Profile',
+      meta: {
+        title: '个人信息',
+        icon: 'ios-navigate'
+      },
+      component: Profile
+    }]
+  }],
+  component: Layout
+}, {
+  path: '/manger',
+  name: 'manger',
+  meta: {
+    title: '平台管理',
+    icon: 'ios-keypad',
+    level: 0
+  },
+  children: [],
+  component: Layout
+}, {
+  path: '/docs',
+  name: 'docs',
+  meta: {
+    title: '文档中心',
+    icon: 'ios-analytics',
+    level: 0
+  },
+  children: [],
+  component: Layout
+}, {
+  path: '/help',
+  name: 'help',
+  meta: {
+    title: '客服帮助',
+    icon: 'ios-paper',
+    level: 0
+  },
+  children: [],
+  component: Layout
 }]
 
 // 错误提示
 export const errerPage = [{
-  path: '/hello1',
-  name: 'hello',
-  meta: {
-    title: 'Hello World',
-    icon: 'ios-navigate'
-  },
-  component: Index
-}, {
   path: '/500',
   name: 'error-500',
   meta: {
     title: '500-服务器出错',
-    icon: 'ios-navigate'
+    icon: 'ios-navigate',
+    hideInMenu: true
   },
   component: ServerErr
 }, {
@@ -175,7 +181,8 @@ export const errerPage = [{
   name: 'error-403',
   meta: {
     title: '403-权限不足',
-    icon: 'ios-navigate'
+    icon: 'ios-navigate',
+    hideInMenu: true
   },
   component: NotArrow
 }, {
@@ -183,14 +190,10 @@ export const errerPage = [{
   name: 'error-404',
   meta: {
     title: '404-页面不存在',
-    icon: 'ios-navigate'
+    icon: 'ios-navigate',
+    hideInMenu: true
   },
   component: NotFound
 }]
 
-export const routes = [
-  ...loginRouter,
-  otherRouter,
-  ...appRouter,
-  ...errerPage
-]
+export const routes = [...loginRouter]
