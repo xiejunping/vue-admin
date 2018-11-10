@@ -10,6 +10,7 @@ import Message from '@/views/Message'
 import Setting from '@/views/user/Setting'
 import Profile from '@/views/user/Profile'
 import Index from '@/views/index/Index'
+import Frame from '@/views/index/Frame'
 import NotFound from '@/views/error/404'
 import NotArrow from '@/views/error/403'
 import ServerErr from '@/views/error/500'
@@ -39,6 +40,14 @@ export const loginRouter = [{
       notCache: true
     },
     component: Index
+  }, {
+    path: 'frame',
+    name: 'frame',
+    meta: {
+      title: '外部引用',
+      notCache: true
+    },
+    component: Frame
   }]
 }]
 
@@ -53,7 +62,6 @@ export const appRouter = [{
   },
   children: [{
     path: 'access',
-    icon: 'key',
     name: 'access',
     meta: {
       title: '权限管理',
@@ -62,7 +70,6 @@ export const appRouter = [{
     component: Login
   }, {
     path: 'group',
-    icon: '',
     name: 'group',
     meta: {
       title: '用户管理',
@@ -299,8 +306,13 @@ export const appRouter = [{
     level: 0
   },
   children: [{
-    path: '',
-    name: '',
+    path: 'open',
+    name: 'open',
+    meta: {
+      title: '开放中心',
+      icon: 'ios-analytics',
+      href: 'https://xiejunping.github.io/wapman/#/'
+    },
     component: Docs
   }],
   component: Layout
@@ -313,8 +325,28 @@ export const appRouter = [{
     level: 0
   },
   children: [{
-    path: '',
-    name: '',
+    path: 'online',
+    name: 'online',
+    meta: {
+      title: '在线客服',
+      icon: 'ios-paper'
+    },
+    component: Help
+  }, {
+    path: 'online1',
+    name: 'online1',
+    meta: {
+      title: '在线客服',
+      icon: 'ios-paper'
+    },
+    component: Help
+  }, {
+    path: 'online2',
+    name: 'online2',
+    meta: {
+      title: '在线客服',
+      icon: 'ios-paper'
+    },
     component: Help
   }],
   component: Layout

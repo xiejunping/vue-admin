@@ -9,7 +9,13 @@ export default {
         query = route.query
       }
       if (name.indexOf('isTurnByHref_') > -1) {
-        window.open(name.split('_')[1])
+        // window.open(name.split('_')[1])
+        this.$router.push({
+          name: 'frame',
+          query: {
+            href: name.split('_')[1]
+          }
+        })
         return
       }
       this.$router.push({
@@ -17,6 +23,9 @@ export default {
         params,
         query
       })
+    },
+    getNameOrHref (item, children0) {
+      return item.href ? `isTurnByHref_${item.href}` : (children0 ? item.children[0].name : item.name)
     }
   }
 }

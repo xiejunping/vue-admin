@@ -10,18 +10,18 @@
     :class="menuitemClasses">
     <template v-for="item in menuList">
       <template v-if="item.children && item.children.length">
-        <Submenu :name="item.name" :key="`menu-${item.name}`">
+        <Submenu :name="getNameOrHref(item)" :key="`menu-${item.name}`">
           <template slot="title">
             <Icon :type="item.icon"></Icon>
             <span>{{item.title}}</span>
           </template>
-          <MenuItem v-for="(t, i) in item.children" :name="t.name" :key="`menu-${item.name}-${i}`">
+          <MenuItem v-for="(t, i) in item.children" :name="getNameOrHref(t)" :key="`menu-${item.name}-${i}`">
             <span>{{t.title}}</span>
           </MenuItem>
         </Submenu>
       </template>
       <template v-else>
-        <MenuItem :name="item.name" :key="`menu-${item.name}`">
+        <MenuItem :name="getNameOrHref(item)" :key="`menu-${item.name}`">
           <Icon :type="item.icon" :key="`menu-${item.name}-icon`"></Icon>
           <span :key="`menu-${item.name}-span`">{{item.title}}</span>
         </MenuItem>
