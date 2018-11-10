@@ -149,7 +149,6 @@ export const findToName = (routes, path) => {
   if (!Util.isArray(routes) || !Util.isArray(paths)) return
 
   paths.shift()
-  console.log(paths)
   if (paths[0]) {
     let meta = routes.filter(ret => ret.path === `/${paths[0]}`)
 

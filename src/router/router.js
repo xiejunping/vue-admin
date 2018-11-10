@@ -1,6 +1,11 @@
 import HelloWorld from '@/components/HelloWorld'
 import Layout from '@/views/layout/Layout'
 import Login from '@/views/Login'
+import Admin from '@/views/admin'
+import Manger from '@/views/manger'
+import Docs from '@/views/docs'
+import Help from '@/views/help'
+
 import Message from '@/views/Message'
 import Setting from '@/views/user/Setting'
 import Profile from '@/views/user/Profile'
@@ -54,16 +59,7 @@ export const appRouter = [{
       title: '权限管理',
       icon: 'ios-analytics'
     },
-    component: HelloWorld,
-    children: [{
-      path: 'index',
-      meta: {
-        title: '权限管理',
-        icon: 'ios-navigate' // access: ['super']
-      },
-      name: 'access_index',
-      component: Login
-    }]
+    component: Login
   }, {
     path: 'group',
     icon: '',
@@ -72,7 +68,6 @@ export const appRouter = [{
       title: '用户管理',
       icon: 'ios-navigate'
     },
-    component: HelloWorld,
     children: [{
       path: 'index',
       meta: {
@@ -81,7 +76,8 @@ export const appRouter = [{
       },
       name: 'group_index',
       component: HelloWorld
-    }]
+    }],
+    component: Admin
   }, {
     path: 'hello',
     name: 'Hello',
@@ -89,7 +85,6 @@ export const appRouter = [{
       title: 'Hello',
       icon: 'ios-navigate'
     },
-    component: HelloWorld,
     children: [{
       path: 'index',
       meta: {
@@ -98,11 +93,11 @@ export const appRouter = [{
       },
       name: 'hello_index',
       component: HelloWorld
-    }]
+    }],
+    component: Admin
   }, {
     path: 'set',
     name: 'Setting',
-    component: HelloWorld,
     meta: {
       title: '用户设置',
       icon: 'ios-navigate'
@@ -131,7 +126,8 @@ export const appRouter = [{
         icon: 'ios-navigate'
       },
       component: Profile
-    }]
+    }],
+    component: Admin
   }],
   component: Layout
 }, {
@@ -142,7 +138,157 @@ export const appRouter = [{
     icon: 'ios-keypad',
     level: 0
   },
-  children: [],
+  children: [{
+    path: 'menu',
+    name: 'menu',
+    meta: {
+      title: '菜单管理',
+      icon: 'ios-keypad'
+    },
+    children: [{
+      path: 'index',
+      name: 'menu-index',
+      meta: {
+        title: '子菜单',
+        icon: 'ios-keypad'
+      },
+      component: Profile
+    }, {
+      path: 'add',
+      name: 'menu-add',
+      meta: {
+        title: '子菜单1',
+        icon: 'ios-keypad'
+      },
+      component: Profile
+    }],
+    component: Manger
+  }, {
+    path: 'caiwu',
+    name: 'caiwu',
+    meta: {
+      title: '财务管理',
+      icon: 'ios-keypad'
+    },
+    children: [{
+      path: 'index',
+      name: 'caiwu-index',
+      meta: {
+        title: '子菜单',
+        icon: 'ios-keypad'
+      },
+      component: Profile
+    }, {
+      path: 'add',
+      name: 'caiwu-add',
+      meta: {
+        title: '子菜单1',
+        icon: 'ios-keypad'
+      },
+      component: Profile
+    }],
+    component: Manger
+  }, {
+    path: 'tag',
+    name: 'tag',
+    meta: {
+      title: '标签管理',
+      icon: 'ios-keypad'
+    },
+    children: [{
+      path: 'index',
+      name: 'tag-index',
+      meta: {
+        title: '子菜单',
+        icon: 'ios-keypad'
+      },
+      component: Profile
+    }, {
+      path: 'add',
+      name: 'tag-add',
+      meta: {
+        title: '子菜单1',
+        icon: 'ios-keypad'
+      },
+      component: Profile
+    }],
+    component: Manger
+  }, {
+    path: 'fenxiao',
+    name: 'fenxiao',
+    meta: {
+      title: '分销管理',
+      icon: 'ios-keypad'
+    },
+    children: [{
+      path: 'index',
+      name: 'fenxiao-index',
+      meta: {
+        title: '子菜单',
+        icon: 'ios-keypad'
+      },
+      component: Profile
+    }, {
+      path: 'add',
+      name: 'fenxiao-add',
+      meta: {
+        title: '子菜单1',
+        icon: 'ios-keypad'
+      },
+      component: Profile
+    }],
+    component: Manger
+  }, {
+    path: 'yingxiao',
+    name: 'yingxiao',
+    meta: {
+      title: '营销管理',
+      icon: 'ios-keypad'
+    },
+    children: [{
+      path: 'index',
+      name: 'yingxiao-index',
+      meta: {
+        title: '子菜单',
+        icon: 'ios-keypad'
+      },
+      component: Profile
+    }, {
+      path: 'add',
+      name: 'yingxiao-add',
+      meta: {
+        title: '子菜单1',
+        icon: 'ios-keypad'
+      },
+      component: Profile
+    }],
+    component: Manger
+  }, {
+    path: 'arictle',
+    name: 'arictle',
+    meta: {
+      title: '文章管理',
+      icon: 'ios-keypad'
+    },
+    children: [{
+      path: 'index',
+      name: 'arictle-index',
+      meta: {
+        title: '子菜单',
+        icon: 'ios-keypad'
+      },
+      component: Profile
+    }, {
+      path: 'add',
+      name: 'arictle-add',
+      meta: {
+        title: '子菜单1',
+        icon: 'ios-keypad'
+      },
+      component: Profile
+    }],
+    component: Manger
+  }],
   component: Layout
 }, {
   path: '/docs',
@@ -152,7 +298,11 @@ export const appRouter = [{
     icon: 'ios-analytics',
     level: 0
   },
-  children: [],
+  children: [{
+    path: '',
+    name: '',
+    component: Docs
+  }],
   component: Layout
 }, {
   path: '/help',
@@ -162,7 +312,11 @@ export const appRouter = [{
     icon: 'ios-paper',
     level: 0
   },
-  children: [],
+  children: [{
+    path: '',
+    name: '',
+    component: Help
+  }],
   component: Layout
 }]
 

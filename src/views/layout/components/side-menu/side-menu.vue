@@ -47,14 +47,16 @@ export default {
   },
   data () {
     return {
-      openNames: ['1'],
-      activeName: '1-2',
-      allOpenNames: []
+      openNames: [],
+      activeName: ''
     }
   },
   computed: {
     menuitemClasses () {
       return ['menu-item', this.collapsed ? 'collapsed-menu' : 'access_index']
+    },
+    allOpenNames () {
+      return this.menuList.map(rec => rec.name)
     }
   },
   watch: {
@@ -68,15 +70,20 @@ export default {
       this.$nextTick(() => {
         this.$refs.leftMenu.updateOpened()
       })
+    },
+    allOpenNames () {
+      this.oldOpenNames = JSON.parse(JSON.stringify(this.openNames))
+      this.openNames = JSON.parse(JSON.stringify(this.allOpenNames))
+      // 收起切换系统菜单
+      this.$nextTick(() => {
+        this.$refs.leftMenu.updateOpened()
+      })
     }
   },
   methods: {
     changeOpen (names) {
       this.openNames = names
     }
-  },
-  mounted () {
-    this.allOpenNames = this.menuList.map(rec => rec.name)
   }
 }
 </script>

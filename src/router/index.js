@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import store from '@/store'
 import iView from 'iview'
 import Util from '@/common/lib/util'
-// import { findToName } from '@/common/lib/tools'
+import { findToName } from '@/common/lib/tools'
 import { routes, errerPage, appRouter } from './router'
 import { loginName, homeName } from './config'
 import { XSRF_COOKIE } from '@/api/config'
@@ -46,27 +46,29 @@ const canTurnTo = (name, access, routes) => {
 }
 
 const turnTo = (to, access, next, routes) => {
-  console.log(to, routes)
   // 通过用户权限和跳转的页面的name来判断是否有权限访问
-  // if (!to.name) {
-  //   to = Object.assign({}, to, {name: findToName(routes, to.path).name})
-  //   console.log(to)
-  // }
   if (canTurnTo(to.name, access, routes)) next() // 有权限，可访问
-  else next({ replace: true, name: 'error-403' })
+  else {
+    if (to.name) next({ replace: true, name: 'error-403' })
+    else {
+      to = Object.assign({}, to, {name: findToName(routes, to.path).name})
+      if (canTurnTo(to.name, access, routes)) next({path: to.path})
+    }
+  }
 }
 
 const formatAsyncRoutes = (routes, appRoutes) => {
   return new Promise(resolve => {
-    const allRoutes = [
+    const allRputes = [
       ...routes,
       ...appRoutes,
       ...errerPage
     ]
     // 追加路由
-    router.addRoutes(allRoutes)
-    store.commit('setRoutes', allRoutes)
-    resolve(allRoutes)
+    router.addRoutes(appRoutes)
+    router.addRoutes(errerPage)
+    store.commit('setRoutes', allRputes)
+    resolve(allRputes)
   })
 }
 
@@ -79,8 +81,7 @@ const initMenu = (to, access, next) => {
       return formatAsyncRoutes(routes, appRouter)
     }).then(newRoutes => {
       turnTo(to, access, next, newRoutes)
-    }).catch((err) => {
-      console.log(err)
+    }).catch(() => {
       next({
         name: loginName
       })
@@ -111,6 +112,7 @@ router.beforeEach((to, from, next) => {
     if (store.state.user.hasGetInfo) {
       initMenu(to, store.state.user.access, next)
     } else {
+      // 刷新进来这里
       store.dispatch('getUserInfo').then(user => {
         // access必须是一个数组，如：['super_admin'] ['super_admin', 'admin']
         initMenu(to, user.access, next)

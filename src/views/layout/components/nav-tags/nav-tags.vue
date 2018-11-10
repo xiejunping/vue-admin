@@ -210,7 +210,7 @@ export default {
     display inline-block
     line-height 28px
     padding 0 10px
-    margin-top 7px
+    margin-top 4px
     background-color #ffffff
     border-top-left-radius 4px
     border-top-right-radius 4px

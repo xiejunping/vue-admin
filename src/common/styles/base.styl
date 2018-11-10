@@ -10,6 +10,14 @@ body, html
   background: $BgColor
   color: $CtColor
 
+.ivu-layout-sider-children
+  padding-bottom 48px
+  overflow-y auto
+  -webkit-overflow-scrolling: touch
+.ivu-layout-sider-collapsed
+  .ivu-layout-sider-children
+    overflow-y inherit
+
 .collapsed-menu
   .ivu-menu-submenu
     ul
