@@ -39,7 +39,8 @@ export default {
     currentModule: ''
   },
   getters: {
-    menuList: (state, getters, rootState) => getMenuByRouter(getChildMenu(state.routes, state.currentModule), rootState.user.access)
+    menuList: (state, getters, rootState) => getMenuByRouter(getChildMenu(state.routes, state.currentModule), rootState.user.access),
+    topMenu: (state) => state.routes.filter(ret => !ret.meta.hideInMenu)
   },
   mutations: {
     setHasGetAuthMenu (state, status) {
@@ -94,14 +95,14 @@ export default {
   },
   actions: {
     // 获取用户的路由表
-    async getAuthMenu ({ state, commit }) {
-      const data = await Model.authMenu()
-
-      if (data) {
-        commit('setCurrentModule', 'admin') // data[0].name
-        commit('setHasGetAuthMenu', true)
-      }
-      return data
+    getAuthMenu ({ state, commit }) {
+      Model.authMenu().then(data => {
+        if (data && data.length) {
+          commit('setRoutes', data)
+          commit('setCurrentModule', 'admin') // data[0].name
+          commit('setHasGetAuthMenu', true)
+        }
+      })
     }
   }
 }

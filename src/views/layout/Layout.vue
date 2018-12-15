@@ -63,7 +63,7 @@ export default {
       isFullscreen: null,
       collapsed: null,
       current: '1',
-      topMenu: this.$store.state.app.routes.filter(ret => !ret.meta.hideInMenu && ret.meta.level === 0)
+      topMenu: this.$store.getters.topMenu
     }
   },
   computed: {
