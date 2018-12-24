@@ -28,7 +28,7 @@ export default {
       name: 'index'
     }],
     homeRoute: getHomeRoute(routes, homeName),
-    routes: routes,
+    routes: [],
     // 面包屑数组
     menuList: [],
     breadCrumbList: [],
@@ -40,7 +40,13 @@ export default {
   },
   getters: {
     menuList: (state, getters, rootState) => getMenuByRouter(getChildMenu(state.routes, state.currentModule), rootState.user.access),
-    topMenu: (state) => state.routes.filter(ret => !ret.meta.hideInMenu)
+    topMenu: (state) => state.routes.filter(ret => {
+      let bool
+      if (ret.meta) {
+        bool = ret.meta.hideInMenu
+      }
+      return !bool
+    })
   },
   mutations: {
     setHasGetAuthMenu (state, status) {
@@ -95,14 +101,11 @@ export default {
   },
   actions: {
     // 获取用户的路由表
-    getAuthMenu ({ state, commit }) {
-      Model.authMenu().then(data => {
-        if (data && data.length) {
-          commit('setRoutes', data)
-          commit('setCurrentModule', 'admin') // data[0].name
-          commit('setHasGetAuthMenu', true)
-        }
-      })
+    async getAuthMenu ({ state, commit }) {
+      const data = await Model.authMenu()
+      data && data[0].name && commit('setCurrentModule', data[0].name)
+      commit('setHasGetAuthMenu', true)
+      return data
     }
   }
 }

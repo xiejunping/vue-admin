@@ -2,7 +2,7 @@ import ReqClient from './request.class'
 
 const authMenu = async () => {
   const Req = new ReqClient({
-    url: '/user/info'
+    url: '/auth/menu'
   })
   try {
     return await Req.reqData()

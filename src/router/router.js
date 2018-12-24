@@ -1,5 +1,5 @@
 import HelloWorld from '@/components/HelloWorld'
-import Layout from '@/views/layout/Layout'
+import Layout from '@/views/layout'
 import Login from '@/views/Login'
 import Admin from '@/views/admin'
 import Manger from '@/views/manger'

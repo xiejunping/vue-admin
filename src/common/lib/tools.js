@@ -162,3 +162,21 @@ export const findToName = (routes, path) => {
   }
   return false
 }
+
+export function treeToList (tree, child, field) {
+  let arr = []
+  if (Util.isArray(tree)) {
+    tree.forEach((item, idx) => {
+      if (item.level) {
+        if (item.level === 2) {
+          item[field] = tree.length === idx + 1 ? `  └─ ${item[field]}` : `  ├─ ${item[field]}`
+        } else if (item.level === 3) {
+          item[field] = tree.length === idx + 1 ? `  │  └─ ${item[field]}` : `  │  ├─ ${item[field]}`
+        }
+      }
+      arr.push(item)
+      if (item[child] && item[child].length) arr.push(...treeToList(item[child], child, field))
+    })
+  }
+  return arr
+}

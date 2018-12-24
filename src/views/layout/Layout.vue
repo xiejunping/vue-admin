@@ -22,15 +22,8 @@
 
       <!-- right -->
       <Layout class="layout-content-main">
-        <!-- 面包屑
-        <Breadcrumb class="layout-content-position" :style="{margin: '24px 0', textAlign: 'left'}">
-          <BreadcrumbItem>Home</BreadcrumbItem>
-          <BreadcrumbItem>Components</BreadcrumbItem>
-          <BreadcrumbItem>Layout</BreadcrumbItem>
-        </Breadcrumb>-->
-
+        <!-- nav -->
         <nav-tags :value="$route" :list="tagNavList" @on-close="handleCloseTag"></nav-tags>
-
         <!-- 组件 -->
         <keep-alive :max="50" :include="cacheList">
           <router-view/>

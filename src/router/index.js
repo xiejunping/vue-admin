@@ -4,7 +4,7 @@ import store from '@/store'
 import iView from 'iview'
 import Util from '@/common/lib/util'
 import { findToName } from '@/common/lib/tools'
-import { routes, errerPage, appRouter } from './router'
+import { routes, errerPage } from './router'
 import { loginName, homeName } from './config'
 import { XSRF_COOKIE } from '@/api/config'
 
@@ -72,16 +72,40 @@ const formatAsyncRoutes = (routes, appRoutes) => {
   })
 }
 
+const createRoutes = (list) => {
+  return list.map(ret => {
+    if (ret.children && ret.children.length) {
+      ret.children = createRoutes(ret.children)
+    }
+    return {
+      path: ret.path,
+      name: ret.name,
+      meta: {
+        title: ret.title,
+        icon: ret.icon,
+        level: ret.level
+      },
+      children: ret.children,
+      component (resolve) {
+        require([`@/views${ret.component}/index.js`], resolve)
+      }
+    }
+  })
+}
+
 const initMenu = (to, access, next) => {
   // 动态请求菜单选项
   if (store.state.app.hasGetAuthMenu) {
     turnTo(to, access, next, store.state.app.routes)
   } else {
     store.dispatch('getAuthMenu').then(data => {
-      return formatAsyncRoutes(routes, appRouter)
+      if (!data || !data.length) throw new Error('权限菜单出错或为空')
+      const appRoutes = createRoutes(data)
+      return formatAsyncRoutes(routes, appRoutes)
     }).then(newRoutes => {
       turnTo(to, access, next, newRoutes)
-    }).catch(() => {
+    }).catch((err) => {
+      console.log(err)
       next({
         name: loginName
       })

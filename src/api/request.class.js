@@ -155,28 +155,28 @@ export default class ReqClient {
 
     switch (status) {
       case 200:
-        Message.error({ content: data.msg })
+        Message.error({ duration: 6, content: data.msg })
         break
       case 403:
-        Message.error({ content: '服务器拒绝请求！' })
+        Message.error({ duration: 6, content: '服务器拒绝请求！' })
         break
       case 404:
-        Message.error({ content: '服务器找不到请求！' })
+        Message.error({ duration: 6, content: '服务器找不到请求！' })
         break
       case 500:
-        Message.error({ content: '服务器出错了！' })
+        Message.error({ duration: 6, content: '服务器出错了！' })
         break
       case 502:
-        Message.error({ content: '服务器跑路了⊙﹏⊙！' })
+        Message.error({ duration: 6, content: '服务器跑路了⊙﹏⊙！' })
         break
       case 503:
-        Message.error({ content: '服务器宕机了-_-。sorry！' })
+        Message.error({ duration: 6, content: '服务器宕机了-_-。sorry！' })
         break
       case 504:
-        Message.error({ content: '服务器没有反应了！' })
+        Message.error({ duration: 6, content: '服务器没有反应了！' })
         break
       default:
-        Message.error({ content: '网络错误!' })
+        Message.error({ duration: 6, content: '网络错误!' })
         break
     }
   }

@@ -175,7 +175,7 @@ export default {
   .c-close-con, .c-btn-con
     position absolute
     z-index 97
-    height 100%
+    height 43px
     line-height 38px
     background-color #ffffff
   .c-close-con
@@ -197,6 +197,7 @@ export default {
     z-index 92
     left 28px
     right 61px
+    height 43px
     box-shadow 0px 0 3px 2px rgba(100, 100, 100, .1) inset
   .c-tag-body
     display inline-block
@@ -208,9 +209,9 @@ export default {
     text-align left
   .c-nav
     display inline-block
-    line-height 28px
+    line-height 30px
     padding 0 10px
-    margin-top 4px
+    margin-top 6px
     background-color #ffffff
     border-top-left-radius 4px
     border-top-right-radius 4px
