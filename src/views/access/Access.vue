@@ -7,7 +7,7 @@
       <Row class="g-wrapper-content">
         <Form inline class="c-access-ivh">
           <FormItem>
-            <Button type="primary" @click="addModel = true">添加权限</Button>
+            <Button type="primary" @click="add">添加权限</Button>
           </FormItem>
         </Form>
         <div class="c-access-tree">
@@ -65,7 +65,7 @@
                     <span>{{item.creat_date}}</span>
                   </Col>
                   <Col span="5">
-                    <a>添加子权限</a> | <a @click.prevent="edit(item.id)">修改</a> | <a @click.prevent="del(item.id)">删除</a></span>
+                    <a @click.prevent="add(item.id)">添加子权限</a> | <a @click.prevent="edit(item.id)">修改</a> | <a @click.prevent="del(item.id)">删除</a></span>
                   </Col>
                 </Row>
                 <ul>
@@ -96,7 +96,7 @@
                         <span>{{meta.creat_date}}</span>
                       </Col>
                       <Col span="5">
-                        <a>添加子权限</a> | <a @click.prevent="edit(meta.id)">修改</a> | <a @click.prevent="del(meta.id)">删除</a></span>
+                        <a @click.prevent="add(meta.id)">添加子权限</a> | <a @click.prevent="edit(meta.id)">修改</a> | <a @click.prevent="del(meta.id)">删除</a></span>
                       </Col>
                     </Row>
                     <ul>
@@ -127,7 +127,7 @@
                             <span>{{t.creat_date}}</span>
                           </Col>
                           <Col span="5">
-                            <a>添加子权限</a> | <a @click.prevent="edit(t.id)">修改</a> | <a @click.prevent="del(t.id)">删除</a></span>
+                            <a @click.prevent="add(t.id)">添加子权限</a> | <a @click.prevent="edit(t.id)">修改</a> | <a @click.prevent="del(t.id)">删除</a></span>
                           </Col>
                         </Row>
                       </li>
@@ -240,7 +240,7 @@ export default {
       formAccess: {
         name: '',
         pid: 0,
-        mid: '',
+        mid: -1,
         type: -1,
         urls: '',
         status: 1
@@ -274,14 +274,6 @@ export default {
       // 还原默认值
       this.spin = true
       this.menu = []
-      this.formAccess = Object.assign({}, {
-        name: '',
-        pid: 0,
-        mid: '',
-        type: -1,
-        urls: '',
-        status: 1
-      })
       if (this.editState) {
         Promise.all([getAccessInfo(this.editId), getMenu()]).then(data => {
           this.spin = false
@@ -302,9 +294,30 @@ export default {
       this.editState = true
       this.editId = id
     },
+    add (id) {
+      // 默认值
+      this.formAccess = Object.assign({}, {
+        name: '',
+        mid: -1,
+        pid: 0,
+        type: -1,
+        urls: '',
+        status: 1
+      })
+      if (id) this.formAccess.pid = id
+      this.addModel = true
+    },
     save () {
       this.$refs.formModal.validate((valid) => {
         if (valid) {
+          if (this.formAccess.type < 0) {
+            this.$Message.error({duration: 5, content: '请选择类型'})
+            return
+          }
+          if (this.formAccess.type === 'URL' && this.formAccess.mid < 0) {
+            this.$Message.error({duration: 5, content: '请选择菜单'})
+            return
+          }
           this.spin = true
           this.saving = true
           addAccess(this.formAccess).then(data => {
@@ -320,12 +333,10 @@ export default {
     },
     resave () {
       this.$refs.formModal.validate((valid) => {
-        console.log(valid)
         if (valid) {
           const params = Object.assign({id: this.editId}, this.formAccess)
           this.spin = true
           this.saving = true
-          console.log(this.formAccess)
           editAccess(params).then(data => {
             this.spin = false
             this.saving = false

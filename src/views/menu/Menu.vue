@@ -63,7 +63,7 @@
                 <span>{{item.creat_date}}</span>
                 </Col>
                 <Col span="5">
-                <a>添加子权限</a> | <a @click.prevent="edit(item.id)">修改</a> | <a @click.prevent="del(item.id)">删除</a></span>
+                <a @click.prevent="append(item.id)">添加子菜单</a> | <a @click.prevent="edit(item.id)">修改</a> | <a @click.prevent="del(item.id)">删除</a></span>
                 </Col>
               </Row>
               <ul>
@@ -93,7 +93,7 @@
                     <span>{{meta.creat_date}}</span>
                     </Col>
                     <Col span="5">
-                    <a>添加子权限</a> | <a @click.prevent="edit(meta.id)">修改</a> | <a @click.prevent="del(meta.id)">删除</a></span>
+                    <a @click.prevent="append(meta.id)">添加子菜单</a> | <a @click.prevent="edit(meta.id)">修改</a> | <a @click.prevent="del(meta.id)">删除</a></span>
                     </Col>
                   </Row>
                   <ul>
@@ -123,7 +123,7 @@
                         <span>{{t.creat_date}}</span>
                         </Col>
                         <Col span="5">
-                        <a>添加子权限</a> | <a @click.prevent="edit(t.id)">修改</a> | <a @click.prevent="del(t.id)">删除</a></span>
+                        <a @click.prevent="append(t.id)">添加子菜单</a> | <a @click.prevent="edit(t.id)">修改</a> | <a @click.prevent="del(t.id)">删除</a></span>
                         </Col>
                       </Row>
                     </li>
@@ -171,7 +171,7 @@
           <FormItem label="图标" prop="type">
             <Input v-model="formMenu.icon" placeholder="" style="width: 225px" />
           </FormItem>
-          <FormItem label="组件" prop="mid">
+          <FormItem label="组件" prop="component">
             <Input v-model="formMenu.component" placeholder="" style="width: 225px" />
           </FormItem>
           <FormItem label="路径" prop="path">
@@ -237,6 +237,9 @@ export default {
           status: 1
         }
       }
+    },
+    append (id) {
+
     },
     edit (id) {
       if (!id) return
@@ -314,10 +317,16 @@ export default {
           {required: true, message: '菜单名称不能为空', trigger: 'blur'}
         ],
         pid: [
-          {type: 'number', required: true, message: '父级菜单不能为空'}
+          {required: true, message: '父级菜单不能为空', type: 'number'}
         ],
         name: [
+          {required: true, message: '路由名称不能为空', trigger: 'blur'}
+        ],
+        component: [
           {required: true, message: '路由组件不能为空', trigger: 'blur'}
+        ],
+        path: [
+          {required: true, message: '菜单路径不能为空', trigger: 'blur'}
         ]
       }
     }
