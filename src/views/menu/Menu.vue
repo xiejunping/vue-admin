@@ -7,132 +7,14 @@
       <Row class="g-wrapper-content">
         <Form inline class="c-menu-ivh">
           <FormItem>
-            <Button type="primary" @click="addModel = true">添加菜单</Button>
+            <Button type="primary" @click="cron({type: 'add', id: 0})">添加菜单</Button>
           </FormItem>
         </Form>
-        <div class="c-menu-tree">
-          <Row class="c-tree-th">
-            <Col span="1">
-            <span>排序</span>
-            </Col>
-            <Col span="1">
-            <span>ID</span>
-            </Col>
-            <Col span="6" class="c-tree-text">
-            <span>名称</span>
-            </Col>
-            <Col span="2">
-            <span>图标</span>
-            </Col>
-            <Col span="4" class="c-tree-text">
-            <span>路径</span>
-            </Col>
-            <Col span="2">
-            <span>状态</span>
-            </Col>
-            <Col span="3">
-            <span>创建日期</span>
-            </Col>
-            <Col span="5">
-            <span>操作</span>
-            </Col>
-          </Row>
-          <ul>
-            <li v-for="item in list" :key="item.id">
-              <Row :gutter="12" class="c-tree-tr">
-                <Col span="1">
-                  <Input size="small" number v-model="item.order" />
-                </Col>
-                <Col span="1">
-                <span>{{item.id}}</span>
-                </Col>
-                <Col span="6" class="c-tree-text">
-                <span>{{item.title}}</span>
-                </Col>
-                <Col span="2">
-                  <Icon :type="item.icon" size="18"></Icon>
-                </Col>
-                <Col span="4" class="c-tree-text">
-                <span>{{item.path}}</span>
-                </Col>
-                <Col span="2">
-                <span v-if="item.status === 1" class="g-text-success">启用</span>
-                <span v-else class="g-text-error">禁用</span>
-                </Col>
-                <Col span="3">
-                <span>{{item.creat_date}}</span>
-                </Col>
-                <Col span="5">
-                <a @click.prevent="append(item.id)">添加子菜单</a> | <a @click.prevent="edit(item.id)">修改</a> | <a @click.prevent="del(item.id)">删除</a></span>
-                </Col>
-              </Row>
-              <ul>
-                <li v-for="(meta, idx) in item.children" :key="meta.id">
-                  <Row :gutter="12" class="c-tree-tr">
-                    <Col span="1">
-                    <Input size="small" number v-model="meta.order" />
-                    </Col>
-                    <Col span="1">
-                    <span>{{meta.id}}</span>
-                    </Col>
-                    <Col span="6" class="c-tree-text">
-                    <span v-if="item.children.length - 1 === idx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ {{meta.title}}</span>
-                    <span v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ {{meta.title}}</span>
-                    </Col>
-                    <Col span="2">
-                      <Icon :type="meta.icon" size="18"></Icon>
-                    </Col>
-                    <Col span="4" class="c-tree-text">
-                    <span>{{meta.path}}</span>
-                    </Col>
-                    <Col span="2">
-                    <span v-if="meta.status === 1" class="g-text-success">启用</span>
-                    <span v-else class="g-text-error">禁用</span>
-                    </Col>
-                    <Col span="3">
-                    <span>{{meta.creat_date}}</span>
-                    </Col>
-                    <Col span="5">
-                    <a @click.prevent="append(meta.id)">添加子菜单</a> | <a @click.prevent="edit(meta.id)">修改</a> | <a @click.prevent="del(meta.id)">删除</a></span>
-                    </Col>
-                  </Row>
-                  <ul>
-                    <li v-for="(t, i) in meta.children" :key="t.id">
-                      <Row :gutter="12" class="c-tree-tr">
-                        <Col span="1">
-                        <Input size="small" number v-model="t.order" />
-                        </Col>
-                        <Col span="1">
-                        <span>{{t.id}}</span>
-                        </Col>
-                        <Col span="6" class="c-tree-text">
-                        <span v-if="meta.children.length - 1 === i">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ {{t.title}}</span>
-                        <span v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ {{t.title}}</span>
-                        </Col>
-                        <Col span="2">
-                        <Icon :type="t.icon" size="18"></Icon>
-                        </Col>
-                        <Col span="4" class="c-tree-text">
-                        <span>{{t.path}}</span>
-                        </Col>
-                        <Col span="2">
-                        <span v-if="t.status === 1" class="g-text-success">启用</span>
-                        <span v-else class="g-text-error">禁用</span>
-                        </Col>
-                        <Col span="3">
-                        <span>{{t.creat_date}}</span>
-                        </Col>
-                        <Col span="5">
-                        <a @click.prevent="append(t.id)">添加子菜单</a> | <a @click.prevent="edit(t.id)">修改</a> | <a @click.prevent="del(t.id)">删除</a></span>
-                        </Col>
-                      </Row>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+        <list-table
+          :columns="columns"
+          :data="list"
+          :spin="spin"
+          @on-control="cron"></list-table>
         <Form inline class="c-menu-ivh">
           <FormItem>
             <Button type="default">排序</Button>
@@ -146,66 +28,60 @@
         </Form>
       </Row>
     </div>
-    <Modal
-      title="添加菜单"
-      width="735"
+
+    <add-modal
       v-model="addModel"
-      :mask-closable="false"
-      @on-visible-change="bind">
-      <Spin size="large" fix v-if="spin"></Spin>
-      <Row :gutter="12">
-        <Col span="18">
-        <Form ref="formModal" :model="formMenu" autocomplete="on" :rules="ruleValidate" :label-width="100">
-          <FormItem label="菜单名称" prop="title">
-            <Input v-model="formMenu.title" placeholder="" style="width: 335px" />
-          </FormItem>
-          <FormItem label="父级菜单" prop="pid">
-            <Select v-model="formMenu.pid" style="width: 225px">
-              <Option :value="0">顶级</Option>
-              <Option v-for="t in dropList" :key="t.id" :value="t.id">{{t.title}}</Option>
-            </Select>
-          </FormItem>
-          <FormItem label="路由" prop="name">
-            <Input v-model="formMenu.name" placeholder="" style="width: 225px" />
-          </FormItem>
-          <FormItem label="图标" prop="type">
-            <Input v-model="formMenu.icon" placeholder="" style="width: 225px" />
-          </FormItem>
-          <FormItem label="组件" prop="component">
-            <Input v-model="formMenu.component" placeholder="" style="width: 225px" />
-          </FormItem>
-          <FormItem label="路径" prop="path">
-            <Input v-model="formMenu.path" placeholder="" style="width: 335px" />
-          </FormItem>
-          <FormItem label="状态" prop="status">
-            <Select v-model="formMenu.status" style="width: 225px">
-              <Option :value="1">启用</Option>
-              <Option :value="0">禁用</Option>
-            </Select>
-          </FormItem>
-        </Form>
-        </Col>
-      </Row>
-      <div slot="footer">
-        <Button type="default" @click="addModel = false">取消</Button>
-        <Button v-if="editState" type="primary" :loading="saving" @click="resave">
-          <span v-if="saving">提交中...</span>
-          <span v-else>保存</span>
-        </Button>
-        <Button v-else type="primary" :loading="saving" @click="save">
-          <span v-if="saving">提交中...</span>
-          <span v-else>添加</span>
-        </Button>
-      </div>
-    </Modal>
+      title="菜单"
+      :loading="loading"
+      :spin="spin"
+      :editState="editState"
+      @on-bind="bind"
+      @on-save="submit"
+      @on-reset="reset">
+      <Form ref="formModal" :model="formMenu" autocomplete="on" :rules="ruleValidate" :label-width="100">
+        <FormItem label="菜单名称" prop="title">
+          <Input v-model="formMenu.title" placeholder="" style="width: 335px" />
+        </FormItem>
+        <FormItem label="父级菜单" prop="pid">
+          <Select v-model="formMenu.pid" style="width: 225px">
+            <Option :value="0">顶级</Option>
+            <Option v-for="t in dropList" :key="t.id" :value="t.id">{{t.title}}</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="路由" prop="name">
+          <Input v-model="formMenu.name" placeholder="" style="width: 225px" />
+        </FormItem>
+        <FormItem label="图标" prop="type">
+          <Input v-model="formMenu.icon" placeholder="" style="width: 225px" />
+        </FormItem>
+        <FormItem label="组件" prop="component">
+          <Input v-model="formMenu.component" placeholder="" style="width: 225px" />
+        </FormItem>
+        <FormItem label="路径" prop="path">
+          <Input v-model="formMenu.path" placeholder="" style="width: 335px" />
+        </FormItem>
+        <FormItem label="状态" prop="status">
+          <Select v-model="formMenu.status" style="width: 225px">
+            <Option :value="1">启用</Option>
+            <Option :value="0">禁用</Option>
+          </Select>
+        </FormItem>
+      </Form>
+    </add-modal>
   </div>
 </template>
 
 <script>
+import mixin from '../mixin'
 import { getMenu, addMenu, delMenu, editMenu, getMenuInfo } from '@/api/manage.model'
 import { treeToList } from '@/common/lib/tools'
+import { isArray } from '@/common/lib/utils'
+import ListTable from '@/components/list-table'
+import AddModal from '@/components/add-modal'
 export default {
   name: 'imenu',
+  mixins: [ mixin ],
+  components: { ListTable, AddModal },
   computed: {
     dropList () {
       const drop = JSON.parse(JSON.stringify(this.list))
@@ -214,68 +90,31 @@ export default {
   },
   methods: {
     getData () {
+      this.spin = true
       getMenu().then(data => {
-        this.list = data
+        this.spin = false
+        if (data && isArray(data)) this.list = data
       })
     },
     bind () {
-      if (this.editState) {
+      if (this.editState && this.formMenu.id) {
         this.spin = true
-        getMenuInfo(this.editId).then(data => {
+        getMenuInfo(this.formMenu.id).then(data => {
           this.spin = false
           data && (this.formMenu = data)
         })
-      } else {
-        this.editId = null
-        this.formMenu = {
-          title: '',
-          name: '',
-          pid: 0,
-          path: '',
-          icon: '',
-          component: '',
-          status: 1
-        }
-      }
+      } else this.reduce()
     },
-    append (id) {
-
+    add (id) {
+      this.reduce()
+      this.formMenu.pid = id
+      this.addModel = true
     },
     edit (id) {
       if (!id) return
-      this.addModel = true
       this.editState = true
-      this.editId = id
-    },
-    save () {
-      this.$refs.formModal.validate((valid) => {
-        if (valid) {
-          this.spin = true
-          this.saving = true
-          addMenu(this.formMenu).then(data => {
-            this.spin = false
-            this.saving = false
-            if (data) {
-              this.addModel = false
-              this.getData()
-            }
-          })
-        }
-      })
-    },
-    resave () {
-      const params = Object.assign({id: this.editId}, this.formMenu)
-      this.spin = true
-      this.saving = true
-      editMenu(params).then(data => {
-        this.spin = false
-        this.saving = false
-        if (data) {
-          this.editState = false
-          this.addModel = false
-          this.getData()
-        }
-      })
+      this.formMenu.id = id
+      this.addModel = true
     },
     del (id) {
       this.$Modal.confirm({
@@ -292,18 +131,97 @@ export default {
           })
         }
       })
+    },
+    reduce () {
+      this.formMenu = {
+        id: '',
+        title: '',
+        name: '',
+        pid: 0,
+        path: '',
+        icon: '',
+        component: '',
+        status: 1
+      }
+    },
+    reset () {
+      this.reduce()
+      this.$refs.formModal.resetFields()
+    },
+    save () {
+      this.$refs.formModal.validate((valid) => {
+        if (valid) {
+          this.loading = true
+          addMenu(this.formMenu).then(data => {
+            this.loading = false
+            if (data) {
+              this.addModel = false
+              this.getData()
+            }
+          })
+        }
+      })
+    },
+    resave () {
+      this.loading = true
+      editMenu(this.formMenu).then(data => {
+        this.loading = false
+        if (data) {
+          this.editState = false
+          this.addModel = false
+          this.getData()
+        }
+      })
     }
   },
   data () {
     return {
-      editState: null,
-      editId: null,
-      list: [],
-
-      spin: null,
-      saving: null,
-      addModel: null,
+      columns: [
+        {
+          key: 'order',
+          title: '排序',
+          width: '1'
+        },
+        {
+          key: 'id',
+          title: 'ID',
+          width: 1
+        },
+        {
+          key: 'title',
+          title: '名称',
+          width: 6,
+          align: 'left'
+        },
+        {
+          key: 'icon',
+          title: '图标',
+          width: 2
+        },
+        {
+          key: 'path',
+          title: '路径',
+          width: 4,
+          align: 'left'
+        },
+        {
+          key: 'status',
+          title: '状态',
+          width: 2
+        },
+        {
+          key: 'creat_date',
+          title: '创建日期',
+          width: 3
+        },
+        {
+          key: 'control',
+          title: '操作',
+          width: 5
+        }
+      ],
       formMenu: {
+        id: '',
         title: '',
         name: '',
         pid: 0,
@@ -343,16 +261,6 @@ export default {
 .c-menu
   $scroll()
   max-height calc(100% - 43px)
-.c-menu-tree
-  text-align center
-  margin-bottom 24px
-  .c-tree-th, .c-tree-tr
-    height 40px
-    line-height 40px
-  .c-tree-th
-    background-color #efefef
-  .c-tree-text
-    text-align left
 .c-menu-ivh
   .ivu-form-item
     margin-bottom 15px
