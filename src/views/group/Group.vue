@@ -34,6 +34,7 @@
 
 <script>
 import mixin from '../mixin'
+import { getMenu, addMenu, delMenu, editMenu, getMenuInfo } from '@/api/manage.model'
 import ListTable from '@/components/list-table'
 import AddModal from '@/components/add-modal'
 import { isArray } from '@/common/lib/utils'
