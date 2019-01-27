@@ -20,6 +20,7 @@ export default class ReqClient {
   constructor ({url, data, params, timeout = 60000, method = 'GET', onUpload, onDown, cancel}) {
     this.url = url
     this.data = data
+    this.params = params
     this.method = method
     this.timeout = timeout
     this.onUpload = onUpload
@@ -43,6 +44,7 @@ export default class ReqClient {
       url: this.url,
       method: this.method,
       data: this.data,
+      params: this.params,
       timeout: this.timeout,
       headers: this.headers,
       withCredentials: true,

@@ -41,4 +41,9 @@ export default {
   margin-bottom 24px
   .c-tree-body
     background-color #fff
+    padding 6px
+    margin -6px
+    border-left solid 1px #eee
+    border-right solid 1px #eee
+    border-bottom solid 1px #eee
 </style>

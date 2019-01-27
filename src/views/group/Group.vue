@@ -12,7 +12,7 @@
         </Form>
         <list-table
           :columns="columns"
-          :data="groupData"
+          :data="list"
           :spin="spin"
           @on-control="cron"></list-table>
       </Row>
@@ -32,12 +32,12 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import mixin from '../mixin'
-import { getMenu, addMenu, delMenu, editMenu, getMenuInfo } from '@/api/manage.model'
 import ListTable from '@/components/list-table'
 import AddModal from '@/components/add-modal'
 import { isArray } from '@/common/lib/utils'
+import { getGroup, getGroupInfo, addGroup, editGroup, delGroup } from '@/api/manage.model'
 export default {
   name: 'group',
   mixins: [ mixin ],
@@ -47,7 +47,7 @@ export default {
   methods: {
     getData () {
       this.spin = true
-      getMenu().then(data => {
+      getGroup().then(data => {
         this.spin = false
         if (data && isArray(data)) this.list = data
       })
@@ -55,7 +55,7 @@ export default {
     bind () {
       if (this.editState && this.formMenu.id) {
         this.spin = true
-        getMenuInfo(this.formMenu.id).then(data => {
+        getGroupInfo(this.formMenu.id).then(data => {
           this.spin = false
           data && (this.formMenu = data)
         })
@@ -81,7 +81,7 @@ export default {
             content: '正在努力删除中...',
             duration: 60
           })
-          delMenu(id).then(data => {
+          delGroup(id).then(data => {
             this.$Message.destroy()
             if (data) this.getData()
           })
@@ -108,7 +108,7 @@ export default {
       this.$refs.formModal.validate((valid) => {
         if (valid) {
           this.loading = true
-          addMenu(this.formMenu).then(data => {
+          addGroup(this.formMenu).then(data => {
             this.loading = false
             if (data) {
               this.addModel = false
@@ -120,7 +120,7 @@ export default {
     },
     resave () {
       this.loading = true
-      editMenu(this.formMenu).then(data => {
+      editGroup(this.formMenu).then(data => {
         this.loading = false
         if (data) {
           this.editState = false
@@ -165,60 +165,11 @@ export default {
           title: '操作'
         }
       ],
-      groupData: [
-        {
-          id: 1,
-          name: '超级管理员',
-          status: 1,
-          order: 0,
-          level: 1,
-          creat_date: '2018-12-13 19:59:48',
-          children: [
-            {
-              id: 3,
-              name: '超级-1',
-              status: 2,
-              order: 0,
-              level: 2,
-              creat_date: '2018-12-15 11:30:09',
-              children: [
-                {
-                  id: 4,
-                  name: '超级-1',
-                  status: 2,
-                  order: 0,
-                  level: 2,
-                  creat_date: '2018-12-15 11:30:09',
-                  children: []
-                }, {
-                  id: 5,
-                  name: '超级-1',
-                  status: 2,
-                  order: 0,
-                  level: 2,
-                  creat_date: '2018-12-15 11:30:09',
-                  children: []
-                }
-              ]
-            },
-            {
-              id: 6,
-              name: '超级-2',
-              status: 2,
-              order: 0,
-              level: 2,
-              creat_date: '2018-12-15 11:30:09'
-            }
-          ]
-        }, {
-          id: 2,
-          name: '超级',
-          status: 2,
-          order: 0,
-          creat_date: '2018-12-15 11:30:09'
-        }
-      ]
+      list: []
     }
+  },
+  created () {
+    this.getData()
   }
 }
 </script>
@@ -226,5 +177,9 @@ export default {
 <style lang="stylus" scoped>
 @import "~@/common/styles/mixin.styl"
 .c-group
-  background-color #fff
+  $scroll()
+  max-height calc(100% - 43px)
+  .c-group-ivh
+    .ivu-form-item
+      margin-bottom 15px
 </style>

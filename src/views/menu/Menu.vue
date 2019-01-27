@@ -71,7 +71,7 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import mixin from '../mixin'
 import { getMenu, addMenu, delMenu, editMenu, getMenuInfo } from '@/api/manage.model'
 import { treeToList } from '@/common/lib/tools'

@@ -81,7 +81,7 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import mixin from '../mixin'
 import { getAccess, addAccess, getAccessInfo, editAccess, getMenu } from '@/api/manage.model'
 import { treeToList } from '@/common/lib/tools'
