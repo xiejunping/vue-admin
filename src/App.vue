@@ -20,4 +20,12 @@ export default {
   color: #2c3e50;
   /*margin-top: 60px;*/
 }
+
+.ivu-card-body {
+  padding: 0 15px;
+}
+.ivu-tree ul li {
+  margin: 0;
+  line-height: 32px;
+}
 </style>

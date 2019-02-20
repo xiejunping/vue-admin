@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div class="c-member">
+    <router-view />
+  </div>
 </template>
 
 <script>
