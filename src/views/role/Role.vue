@@ -176,7 +176,7 @@ export default {
           align: 'left'
         },
         {
-          key: 'group',
+          key: 'gid',
           width: 3,
           title: '用户组',
           align: 'left'
