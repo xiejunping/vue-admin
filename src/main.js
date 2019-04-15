@@ -4,6 +4,9 @@ import router from './router'
 import store from './store'
 import iView from 'iview'
 
+import Antd from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css'
+
 import Model from '@/api'
 import * as Filter from '@/common/lib/filters'
 import Util from '@/common/lib/util'
@@ -13,6 +16,7 @@ import '@/common/styles/index'
 
 Vue.config.productionTip = false
 Vue.use(iView)
+Vue.use(Antd)
 
 // 数据请求类 - 工具类
 Vue.prototype.fetch = Model

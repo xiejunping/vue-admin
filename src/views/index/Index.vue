@@ -90,12 +90,29 @@
         </Card>
       </Col>
     </Row>
+
+    <Row :gutter="10">
+      <Col span="4">
+        网络
+      </Col>
+      <Col span="18">
+        <mixcheck-group>
+          <radio-item value="NONE">不限</radio-item>
+          <check-item value="UNION" label="联通"></check-item>
+          <check-item value="MOBILE">移动</check-item>
+          <check-item value="COMMET">电信</check-item>
+        </mixcheck-group>
+      </Col>
+    </Row>
   </div>
 
 </template>
 
 <script>
 import CountUp from '@/components/CountUp'
+import Mixcheck from '@/components/mixcheck'
+import CheckItem from '@/components/mixcheck/check-item'
+import RadioItem from '@/components/mixcheck/radio-item'
 export default {
   name: 'Index',
   data () {
@@ -110,7 +127,11 @@ export default {
       }
     }
   },
-  components: {CountUp}
+  components: {
+    CheckItem,
+    RadioItem,
+    Mixcheck,
+    CountUp}
 }
 </script>
 
