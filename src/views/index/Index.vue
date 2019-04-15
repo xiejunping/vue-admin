@@ -96,12 +96,12 @@
         网络
       </Col>
       <Col span="18">
-        <mixcheck-group>
+        <mixcheck>
           <radio-item value="NONE">不限</radio-item>
           <check-item value="UNION" label="联通"></check-item>
-          <check-item value="MOBILE">移动</check-item>
+          <check-item value="MOBILE" disabled>移动</check-item>
           <check-item value="COMMET">电信</check-item>
-        </mixcheck-group>
+        </mixcheck>
       </Col>
     </Row>
   </div>

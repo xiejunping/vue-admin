@@ -1,6 +1,6 @@
 <template>
   <label :class="wrapClasses">
-    <span :class="mixcheckClasses">
+    <span class="c-check-item">
       <input
         type="checkbox"
         :class="inputClasses"
@@ -32,20 +32,11 @@ export default {
   computed: {
     wrapClasses () {
       return [
-        'c-wrapper',
+        'mixcheck-item',
+        'c-check-wrapper',
         {
-          'c-group-item': this.multiple,
           'c-wrapper-checked': this.currentValue,
           'c-wrapper-disabled': this.disabled
-        }
-      ]
-    },
-    mixcheckClasses () {
-      return [
-        'c-mixcheck',
-        {
-          'c-mix-checked': this.currentValue,
-          'c-mix-disabled': this.disabled
         }
       ]
     },
@@ -81,5 +72,32 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '~common/styles/mixin'
 
+.c-check-wrapper
+  min-width 94px
+  text-align center
+  position relative
+  &:hover
+    color #3990ec
+  &:after
+    content ""
+    position absolute
+    right 0
+    top -3px
+    width 0
+    height 0
+    border-top 6px solid transparent
+    border-bottom 6px solid transparent
+    border-left 6px solid #dee4f5
+    transform rotate(-45deg)
+  .c-mix-input
+    position absolute
+    top 0
+    bottom 0
+    left 0
+    right 0
+    z-index 1
+    opacity 0
+    cursor pointer
 </style>
