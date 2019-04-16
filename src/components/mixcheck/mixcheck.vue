@@ -6,6 +6,8 @@
 
 <script type="text/ecmascript-6">
 import { findComponentsDownward } from '@/common/lib/assist'
+import { isArray } from '@/common/lib/utils'
+
 export default {
   name: 'Mixcheck',
   props: {
@@ -17,17 +19,25 @@ export default {
     }
   },
   methods: {
-    updateModel (update) {
-      this.childrens = findComponentsDownward(this, 'RadioItem')
-      if (this.childrens) {
+    updateModel () {
+      this.radioChildrens = findComponentsDownward(this, 'RadioItem')
+      this.checkChildrens = findComponentsDownward(this, 'CheckItem')
+
+      if (this.radioChildrens || this.checkChildrens) {
         const { value } = this
-        this.childrens.forEach(child => {
+        const childrens = this.$children
+        for (const child of childrens) {
           child.model = value
-          if (update) {
+          child.currentValue = false
+        }
+        if (isArray(value)) {
+          this.checkChildrens.forEach(child => {
             child.currentValue = value.indexOf(child.label) >= 0
-            child.group = true
-          }
-        })
+          })
+        } else {
+          const index = this.radioChildrens.findIndex(ret => ret.label === value)
+          if (index > -1) this.radioChildrens[index].currentValue = true
+        }
       }
     },
     change (data) {
@@ -38,23 +48,26 @@ export default {
   },
   watch: {
     value () {
-      this.updateModel(true)
+      this.updateModel()
     }
   },
   data () {
     return {
       currentValue: this.value,
-      childrens: []
+      radioChildrens: [],
+      checkChildrens: []
     }
   },
   mounted () {
-    this.updateModel(true)
+    this.$nextTick(() => {
+      this.updateModel()
+    })
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-@import '~common/styles/mixin'
+@import "~@/common/styles/mixin.styl"
 
 .c-mixcheck
   position relative

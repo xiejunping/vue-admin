@@ -93,14 +93,15 @@
 
     <Row :gutter="10">
       <Col span="4">
-        网络
+        <span>网络</span>
+        <span>{{network}}</span>
       </Col>
       <Col span="18">
-        <mixcheck>
-          <radio-item value="NONE">不限</radio-item>
-          <check-item value="UNION" label="联通"></check-item>
-          <check-item value="MOBILE" disabled>移动</check-item>
-          <check-item value="COMMET">电信</check-item>
+        <mixcheck v-model="network" @on-change="changeMix">
+          <radio-item label="NONE">不限</radio-item>
+          <check-item label="UNION">联通</check-item>
+          <check-item label="MOBILE">移动</check-item>
+          <check-item label="COMMET">电信</check-item>
         </mixcheck>
       </Col>
     </Row>
@@ -124,14 +125,21 @@ export default {
         wave: 5554,
         view: 385634,
         viewIP: 10987
-      }
+      },
+      network: ['UNION', 'MOBILE']
     }
   },
   components: {
     CheckItem,
     RadioItem,
     Mixcheck,
-    CountUp}
+    CountUp
+  },
+  methods: {
+    changeMix (val) {
+      console.log(val)
+    }
+  }
 }
 </script>
 

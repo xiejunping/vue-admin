@@ -49,15 +49,13 @@ export default {
       if (this.disabled) return false
       const checked = event.target.checked
       this.currentValue = checked
-
-      const value = checked ? this.trueValue : this.falseValue
-      this.$emit('input', value)
-      if (this.group) this.parent.change(this.model)
-      else this.$emit('on-change', value)
+      if (checked) this.parent.change(this.label)
+      else this.parent.change('')
     }
   },
   data () {
     return {
+      model: null,
       showSlot: true,
       currentValue: false,
       parent: findComponentUpward(this, 'Mixcheck')
@@ -71,7 +69,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~common/styles/mixin'
+@import "~@/common/styles/mixin.styl"
 
 .c-radio-wrapper
   min-width 94px

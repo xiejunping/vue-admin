@@ -48,17 +48,20 @@ export default {
     change (event) {
       if (this.disabled) return false
       const checked = event.target.checked
-      const brothers = findBrothersComponents(this, 'Checkitem', true)
+      const brothers = findBrothersComponents(this, 'CheckItem', false)
       this.currentValue = checked
       if (brothers.length) {
-        const model = brothers.filter(child => child.currentValue).map(ret => ret.label) // 同类选中值
+        const model = []
+        for (const child of brothers) {
+          if (child.currentValue) model.push(child.label)
+        }
         this.parent.change(model)
       } else this.parent.change([])
     }
   },
   data () {
     return {
-      model: [],
+      model: null,
       showSlot: true,
       currentValue: false,
       parent: findComponentUpward(this, 'Mixcheck')
@@ -72,7 +75,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~common/styles/mixin'
+@import "~@/common/styles/mixin.styl"
 
 .c-check-wrapper
   min-width 94px
