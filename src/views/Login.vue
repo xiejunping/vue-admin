@@ -7,25 +7,25 @@
         <h3 class="logo-title">Vue-admin 后台管理系统</h3>
       </header>
       <section>
-        <Form ref="loginForm" :model="form" :rules="rules" @keydown.enter.native="handlerSubmit">
-          <FormItem prop="userName">
-            <Input v-model="form.userName" placeholder="请输入用户名">
+        <a-form ref="loginForm" :model="form" :rules="rules" @keydown.enter.native="handlerSubmit">
+          <a-form-item prop="userName">
+            <a-input v-model="form.userName" placeholder="请输入用户名">
               <span slot="prepend">
                 <Icon :size="16" type="md-person"></Icon>
               </span>
-            </Input>
-          </FormItem>
-          <FormItem prop="password">
-            <Input type="password" v-model="form.password" placeholder="请输入密码">
+            </a-input>
+          </a-form-item>
+          <a-form-item prop="password">
+            <a-input type="password" v-model="form.password" placeholder="请输入密码">
               <span slot="prepend">
                 <Icon :size="14" type="md-lock"></Icon>
               </span>
-            </Input>
-          </FormItem>
-          <FormItem>
-            <Button @click="handlerSubmit" type="primary" long>登录</Button>
-          </FormItem>
-        </Form>
+            </a-input>
+          </a-form-item>
+          <a-form-item>
+            <a-button @click="handlerSubmit" type="primary" long>登录</a-button>
+          </a-form-item>
+        </a-form>
       </section>
     </div>
 
