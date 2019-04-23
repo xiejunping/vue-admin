@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store'
-import iView from 'iview'
 import Util from '@/common/lib/util'
 import { findToName } from '@/common/lib/tools'
 import { routes, errerPage } from './router'
@@ -51,8 +50,8 @@ const turnTo = (to, access, next, routes) => {
   else {
     if (to.name) next({ replace: true, name: 'error-403' })
     else {
-      to = Object.assign({}, to, {name: findToName(routes, to.path).name})
-      if (canTurnTo(to.name, access, routes)) next({path: to.path})
+      to = Object.assign({}, to, { name: findToName(routes, to.path).name })
+      if (canTurnTo(to.name, access, routes)) next({ path: to.path })
     }
   }
 }
@@ -116,7 +115,6 @@ const initMenu = (to, access, next) => {
 router.beforeEach((to, from, next) => {
   const token = Util.getCookie(XSRF_COOKIE)
 
-  iView.LoadingBar.start()
   Util.title(to.meta.title)
 
   if (!token && to.name !== loginName) {
@@ -151,7 +149,6 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach(to => {
   // Util.openNewPage(router.app, to.name, to.params, to.query);
-  iView.LoadingBar.finish()
   window.scrollTo(0, 0)
 })
 

@@ -54,6 +54,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "~@/common/styles/mixin.styl"
+@import "~@/assets/styles/mixin.styl"
 
 </style>

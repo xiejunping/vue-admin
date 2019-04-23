@@ -1,4 +1,4 @@
-import Modal from 'iview'
+import Modal from 'ant-design-vue'
 
 export default {
   before_close_normal: resolve => {

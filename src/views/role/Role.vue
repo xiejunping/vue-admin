@@ -208,7 +208,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import "~@/common/styles/mixin.styl"
+@import "~@/assets/styles/mixin.styl"
 .c-role
   $scroll()
   max-height calc(100% - 43px)

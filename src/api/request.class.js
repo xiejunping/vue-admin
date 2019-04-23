@@ -2,7 +2,7 @@ import qs from 'qs'
 import axios from 'axios'
 import store from '@/store'
 import FormData from 'form-data'
-import { Message } from 'iview'
+import { message } from 'ant-design-vue'
 import { HOST_API, RES_CODE, STATE_CODE, MAX_CONTENT_LENGTH, XSRF_COOKIE, XSRF_HEADER } from './config'
 
 const res = Symbol('res')
@@ -147,7 +147,7 @@ export default class ReqClient {
   handleError (response) {
     // 请求错误
     if (!response) {
-      Message.error({
+      message.error({
         showClose: true,
         message: '网络错误，请刷新重试！'
       })
@@ -157,28 +157,28 @@ export default class ReqClient {
 
     switch (status) {
       case 200:
-        Message.error({ duration: 6, content: data.msg })
+        message.error({ duration: 6, content: data.msg })
         break
       case 403:
-        Message.error({ duration: 6, content: '服务器拒绝请求！' })
+        message.error({ duration: 6, content: '服务器拒绝请求！' })
         break
       case 404:
-        Message.error({ duration: 6, content: '服务器找不到请求！' })
+        message.error({ duration: 6, content: '服务器找不到请求！' })
         break
       case 500:
-        Message.error({ duration: 6, content: '服务器出错了！' })
+        message.error({ duration: 6, content: '服务器出错了！' })
         break
       case 502:
-        Message.error({ duration: 6, content: '服务器跑路了⊙﹏⊙！' })
+        message.error({ duration: 6, content: '服务器跑路了⊙﹏⊙！' })
         break
       case 503:
-        Message.error({ duration: 6, content: '服务器宕机了-_-。sorry！' })
+        message.error({ duration: 6, content: '服务器宕机了-_-。sorry！' })
         break
       case 504:
-        Message.error({ duration: 6, content: '服务器没有反应了！' })
+        message.error({ duration: 6, content: '服务器没有反应了！' })
         break
       default:
-        Message.error({ duration: 6, content: '网络错误!' })
+        message.error({ duration: 6, content: '网络错误!' })
         break
     }
   }

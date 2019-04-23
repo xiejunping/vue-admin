@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "~@/common/styles/mixin.styl"
+@import "~@/assets/styles/mixin.styl"
 .c-member
   $scroll()
   max-height calc(100% - 43px)

@@ -10,29 +10,29 @@
 
 > A Vue.js project
 
-## Build Setup
-
-``` bash
-# install dependencies
+## Project setup
+```
 npm install
+```
 
-# serve with hot reload at localhost:8080
-npm run dev
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-# build for production with minification
+### Compiles and minifies for production
+```
 npm run build
+```
 
-# build for production and view the bundle analyzer report
-npm run build --report
+### Run your tests
+```
+npm run test
+```
 
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
+### Lints and fixes files
+```
+npm run lint
 ```
 
 ## 部署到七牛免费云存储平台
@@ -71,6 +71,12 @@ npm test
 
 
 有什么问题请提`issues`, 加我微信号 `hnsanx_com` 打赏也可以的…………
+
+### And-design 新版UI
+
+v1.0
+> 更新新的框架，并集成一些组件
+
 
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

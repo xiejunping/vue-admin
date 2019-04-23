@@ -1,20 +1,3 @@
-import HelloWorld from '@/components/HelloWorld'
-import Layout from '@/views/layout'
-import Login from '@/views/Login'
-import Admin from '@/views/admin'
-import Manger from '@/views/manger'
-import Docs from '@/views/docs'
-import Help from '@/views/help'
-
-import Message from '@/views/Message'
-import Setting from '@/views/user/Setting'
-import Profile from '@/views/user/Profile'
-import Index from '@/views/index/Index'
-import Frame from '@/views/index/Frame'
-import NotFound from '@/views/error/404'
-import NotArrow from '@/views/error/403'
-import ServerErr from '@/views/error/500'
-
 export const loginRouter = [{
   path: '/login',
   name: 'login',
@@ -22,7 +5,7 @@ export const loginRouter = [{
     title: '登录',
     hideInMenu: true
   },
-  component: Login
+  component: () => import('@/views/Login.vue')
 }, {
   path: '/',
   name: 'layout',
@@ -31,7 +14,7 @@ export const loginRouter = [{
     hideInMenu: true
   },
   redirect: '/index',
-  component: Layout,
+  component: () => import('@/views/layout'),
   children: [{
     path: 'index',
     name: 'index',
@@ -39,7 +22,7 @@ export const loginRouter = [{
       title: '首页',
       notCache: true
     },
-    component: Index
+    component: () => import('@/views/index/Index.vue')
   }, {
     path: 'frame',
     name: 'frame',
@@ -47,7 +30,7 @@ export const loginRouter = [{
       title: '外部引用',
       notCache: true
     },
-    component: Frame
+    component: () => import('@/views/index/Frame.vue')
   }]
 }]
 
@@ -67,7 +50,7 @@ export const appRouter = [{
       title: '权限管理',
       icon: 'ios-analytics'
     },
-    component: Login
+    component: () => import('@/views/Login.vue')
   }, {
     path: 'group',
     name: 'group',
@@ -82,9 +65,9 @@ export const appRouter = [{
         icon: 'ios-navigate'
       },
       name: 'group_index',
-      component: HelloWorld
+      component: () => import('@/components/HelloWorld.vue')
     }],
-    component: Admin
+    component: () => import('@/views/admin')
   }, {
     path: 'hello',
     name: 'Hello',
@@ -99,9 +82,9 @@ export const appRouter = [{
         icon: 'ios-navigate'
       },
       name: 'hello_index',
-      component: HelloWorld
+      component: () => import('@/components/HelloWorld.vue')
     }],
-    component: Admin
+    component: () => import('@/views/admin')
   }, {
     path: 'set',
     name: 'Setting',
@@ -116,7 +99,7 @@ export const appRouter = [{
         icon: 'ios-navigate'
       },
       name: 'set_index',
-      component: Setting
+      component: () => import('@/views/user/Setting.vue')
     }, {
       path: 'msg',
       name: 'Message',
@@ -124,7 +107,7 @@ export const appRouter = [{
         title: '消息',
         icon: 'ios-navigate'
       },
-      component: Message
+      component: () => import('@/views/Message.vue')
     }, {
       path: 'profile',
       name: 'Profile',
@@ -132,11 +115,11 @@ export const appRouter = [{
         title: '个人信息',
         icon: 'ios-navigate'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }],
-    component: Admin
+    component: () => import('@/views/admin')
   }],
-  component: Layout
+  component: () => import('@/views/layout')
 }, {
   path: '/manger',
   name: 'manger',
@@ -159,7 +142,7 @@ export const appRouter = [{
         title: '子菜单',
         icon: 'ios-keypad'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }, {
       path: 'add',
       name: 'menu-add',
@@ -167,9 +150,9 @@ export const appRouter = [{
         title: '子菜单1',
         icon: 'ios-keypad'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }],
-    component: Manger
+    component: () => import('@/views/manger')
   }, {
     path: 'caiwu',
     name: 'caiwu',
@@ -184,7 +167,7 @@ export const appRouter = [{
         title: '子菜单',
         icon: 'ios-keypad'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }, {
       path: 'add',
       name: 'caiwu-add',
@@ -192,9 +175,9 @@ export const appRouter = [{
         title: '子菜单1',
         icon: 'ios-keypad'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }],
-    component: Manger
+    component: () => import('@/views/manger')
   }, {
     path: 'tag',
     name: 'tag',
@@ -209,7 +192,7 @@ export const appRouter = [{
         title: '子菜单',
         icon: 'ios-keypad'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }, {
       path: 'add',
       name: 'tag-add',
@@ -217,9 +200,9 @@ export const appRouter = [{
         title: '子菜单1',
         icon: 'ios-keypad'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }],
-    component: Manger
+    component: () => import('@/views/manger')
   }, {
     path: 'fenxiao',
     name: 'fenxiao',
@@ -234,7 +217,7 @@ export const appRouter = [{
         title: '子菜单',
         icon: 'ios-keypad'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }, {
       path: 'add',
       name: 'fenxiao-add',
@@ -242,9 +225,9 @@ export const appRouter = [{
         title: '子菜单1',
         icon: 'ios-keypad'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }],
-    component: Manger
+    component: () => import('@/views/manger')
   }, {
     path: 'yingxiao',
     name: 'yingxiao',
@@ -259,7 +242,7 @@ export const appRouter = [{
         title: '子菜单',
         icon: 'ios-keypad'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }, {
       path: 'add',
       name: 'yingxiao-add',
@@ -267,9 +250,9 @@ export const appRouter = [{
         title: '子菜单1',
         icon: 'ios-keypad'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }],
-    component: Manger
+    component: () => import('@/views/manger')
   }, {
     path: 'arictle',
     name: 'arictle',
@@ -284,7 +267,7 @@ export const appRouter = [{
         title: '子菜单',
         icon: 'ios-keypad'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }, {
       path: 'add',
       name: 'arictle-add',
@@ -292,11 +275,11 @@ export const appRouter = [{
         title: '子菜单1',
         icon: 'ios-keypad'
       },
-      component: Profile
+      component: () => import('@/views/user/Profile.vue')
     }],
-    component: Manger
+    component: () => import('@/views/manger')
   }],
-  component: Layout
+  component: () => import('@/views/layout')
 }, {
   path: '/docs',
   name: 'docs',
@@ -313,9 +296,9 @@ export const appRouter = [{
       icon: 'ios-analytics',
       href: 'https://xiejunping.github.io/wapman/#/'
     },
-    component: Docs
+    component: () => import('@/views/docs')
   }],
-  component: Layout
+  component: () => import('@/views/layout')
 }, {
   path: '/help',
   name: 'help',
@@ -331,7 +314,7 @@ export const appRouter = [{
       title: '在线客服',
       icon: 'ios-paper'
     },
-    component: Help
+    component: () => import('@/views/help')
   }, {
     path: 'online1',
     name: 'online1',
@@ -339,7 +322,7 @@ export const appRouter = [{
       title: '在线客服',
       icon: 'ios-paper'
     },
-    component: Help
+    component: () => import('@/views/help')
   }, {
     path: 'online2',
     name: 'online2',
@@ -347,9 +330,9 @@ export const appRouter = [{
       title: '在线客服',
       icon: 'ios-paper'
     },
-    component: Help
+    component: () => import('@/views/help')
   }],
-  component: Layout
+  component: () => import('@/views/layout')
 }]
 
 // 错误提示
@@ -361,7 +344,7 @@ export const errerPage = [{
     icon: 'ios-navigate',
     hideInMenu: true
   },
-  component: ServerErr
+  component: () => import('@/views/error/500.vue')
 }, {
   path: '/403',
   name: 'error-403',
@@ -370,7 +353,7 @@ export const errerPage = [{
     icon: 'ios-navigate',
     hideInMenu: true
   },
-  component: NotArrow
+  component: () => import('@/views/error/403.vue')
 }, {
   path: '/*',
   name: 'error-404',
@@ -379,7 +362,7 @@ export const errerPage = [{
     icon: 'ios-navigate',
     hideInMenu: true
   },
-  component: NotFound
+  component: () => import('@/views/error/404.vue')
 }]
 
 export const routes = [...loginRouter]

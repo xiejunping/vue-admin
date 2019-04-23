@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "~@/common/styles/mixin.styl"
+@import "~@/assets/styles/mixin.styl"
 .c-table-tree
   position relative
   text-align center

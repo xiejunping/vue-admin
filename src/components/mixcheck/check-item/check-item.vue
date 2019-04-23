@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "~@/common/styles/mixin.styl"
+@import "~@/assets/styles/mixin.styl"
 
 .c-check-wrapper
   min-width 94px
