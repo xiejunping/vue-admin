@@ -1,13 +1,13 @@
 <template>
   <div v-if="showFullScreenBtn" class="c-full-screen">
-    <Tooltip
+    <a-tooltip
       :content="currentFullScreen"
       placement="bottom">
-      <Icon
+      <a-icon
         :type="iconClasses"
         :size="23"
-        @click.native="handleChange"></Icon>
-    </Tooltip>
+        @click.native="handleChange"></a-icon>
+    </a-tooltip>
   </div>
 </template>
 <script>

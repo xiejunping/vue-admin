@@ -1,5 +1,6 @@
 const test = {
-  baseurl: 'http://localhost:3000',
+  // baseurl: 'http://localhost:3000',
+  baseurl: 'https://www.jsvue.cn/api',
   ossPath: '',
   resPath: ''
 }

@@ -1,18 +1,17 @@
 <template>
-  <Header class="layout-header">
-    <Menu mode="horizontal" theme="dark" :active-name="currentModule" @on-select="changeMenu">
+  <a-layout-header class="layout-header">
+    <a-menu mode="horizontal" theme="dark" :defaultSelectedKeys="currentModule" @on-select="changeMenu">
       <div class="layout-logo"></div>
-
       <!-- 顶部菜单 -->
       <div class="layout-nav">
-        <MenuItem v-for="(item, key) in list" :key="key" :name="item.name">
-          <Icon :type="item.meta.icon"></Icon>
+        <a-menu-item v-for="(item, key) in list" :key="key" :name="item.name">
+          <a-icon :type="item.meta.icon"></a-icon>
           <span>{{item.meta.title}}</span>
-        </MenuItem>
+        </a-menu-item>
       </div>
       <slot name="profile"></slot>
-    </Menu>
-  </Header>
+    </a-menu>
+  </a-layout-header>
 </template>
 
 <script>

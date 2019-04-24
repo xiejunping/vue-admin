@@ -1,15 +1,15 @@
 <template>
   <div class="c-tags-nav">
     <div class="c-close-con">
-      <Dropdown transfer @on-click="handleTagsOption">
+      <a-dropdown transfer @on-click="handleTagsOption">
         <Button type="text" size="small">
           <Icon :size="18" type="ios-close-circle-outline" />
         </Button>
-        <DropdownMenu slot="list">
-          <DropdownItem name="close-all">关闭所有</DropdownItem>
-          <DropdownItem name="close-others">关闭其他</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
+        <a-dropdown slot="list">
+          <!-- <DropdownItem name="close-all">关闭所有</DropdownItem>
+          <DropdownItem name="close-others">关闭其他</DropdownItem> -->
+        </a-dropdown>
+      </a-dropdown>
     </div>
     <div class="c-btn-con btn-left">
       <Button type="text" @click="handleScroll(240)">

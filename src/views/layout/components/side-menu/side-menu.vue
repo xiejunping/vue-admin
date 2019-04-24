@@ -1,13 +1,13 @@
 <template>
-  <Menu
+  <a-menu
     ref="leftMenu"
     theme="light"
     width="auto"
     :active-name="activeName"
-    @on-select="turnToPage"
     :open-names="openNames"
-    @on-open-change="changeOpen"
-    :class="menuitemClasses">
+    :class="menuitemClasses"
+    @on-select="turnToPage"
+    @on-open-change="changeOpen">
     <template v-for="item in menuList">
       <template v-if="item.children && item.children.length">
         <Submenu :name="getNameOrHref(item)" :key="`menu-${item.name}`">
@@ -27,7 +27,7 @@
         </MenuItem>
       </template>
     </template>
-  </Menu>
+  </a-menu>
 </template>
 <script>
 import mixin from '../../mixin'

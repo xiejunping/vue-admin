@@ -1,5 +1,5 @@
 <template>
-  <Layout class="layout">
+  <a-layout class="layout">
     <!-- top -->
     <header-bar :list="topMenu">
       <div class="layout-profile" slot="profile">
@@ -14,14 +14,14 @@
     </header-bar>
 
     <!-- main -->
-    <Layout class="layout-content">
+    <a-layout class="layout-content">
       <!-- left -->
-      <Sider class="layout-content-menu" v-model="collapsed" collapsible>
+      <a-layout-sider class="layout-content-menu" v-model="collapsed" collapsible>
         <side-menu :menu-list="menuList" :collapsed="collapsed"></side-menu>
-      </Sider>
+      </a-layout-sider>
 
       <!-- right -->
-      <Layout class="layout-content-main">
+      <a-layout class="layout-content-main">
         <!-- nav -->
         <nav-tags :value="$route" :list="tagNavList" @on-close="handleCloseTag"></nav-tags>
         <!-- 组件 -->
@@ -29,9 +29,9 @@
           <router-view/>
         </keep-alive>
 
-      </Layout>
-    </Layout>
-  </Layout>
+      </a-layout>
+    </a-layout>
+  </a-layout>
 </template>
 <script>
 import { mapMutations } from 'vuex'

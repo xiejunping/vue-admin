@@ -7,28 +7,34 @@
         <h3 class="logo-title">Vue-admin 后台管理系统</h3>
       </header>
       <section>
-        <a-form ref="loginForm" :model="form" :rules="rules" @keydown.enter.native="handlerSubmit">
-          <a-form-item prop="userName">
-            <a-input v-model="form.userName" placeholder="请输入用户名">
-              <span slot="prepend">
-                <Icon :size="16" type="md-person"></Icon>
-              </span>
-            </a-input>
-          </a-form-item>
-          <a-form-item prop="password">
-            <a-input type="password" v-model="form.password" placeholder="请输入密码">
-              <span slot="prepend">
-                <Icon :size="14" type="md-lock"></Icon>
-              </span>
+        <a-form :form="form" @keydown.enter.native="handlerSubmit">
+          <a-form-item>
+            <a-input
+              v-decorator="[
+                'username',
+                {initialValue: 'cabber', rules: [{ required: true, message: '账号不能为空' }]}
+              ]"
+              placeholder="请输入用户名">
+              <a-icon slot="prefix" :size="14"  type="user" />
             </a-input>
           </a-form-item>
           <a-form-item>
-            <a-button @click="handlerSubmit" type="primary" long>登录</a-button>
+            <a-input
+              type="password"
+              v-decorator="[
+                'password',
+                {rules: [{ required: true, min: 6, max: 50, message: '密码为6-20个字母或数字或组合' }]}
+              ]"
+              placeholder="请输入密码">
+              <a-icon slot="prefix" :size="14"  type="lock" />
+            </a-input>
+          </a-form-item>
+          <a-form-item>
+            <a-button @click="handlerSubmit" type="primary" block>登录</a-button>
           </a-form-item>
         </a-form>
       </section>
     </div>
-
   </div>
 </template>
 
@@ -37,53 +43,33 @@ import { mapActions } from 'vuex'
 import Particle from '@/components/Particle'
 export default {
   name: 'login',
-  data () {
-    return {
-      form: {
-        userName: 'cabber', // 'kim',
-        password: ''
-      },
-      rules: {
-        username: [{
-          required: true,
-          message: '账号不能为空',
-          trigger: 'blur'
-        }],
-        password: [{
-          required: true,
-          message: '密码为6-20个字母或数字或组合',
-          max: 50,
-          min: 6,
-          trigger: 'blur'
-        }]
-      }
-    }
+  components: { Particle },
+  beforeCreate () {
+    this.form = this.$form.createForm(this)
   },
   methods: {
     ...mapActions([
       'handleLogin',
       'getUserInfo'
     ]),
-    handlerSubmit () {
-      this.$refs.loginForm.validate((valid) => {
-        if (valid) {
-          this.signIn()
+    handlerSubmit (e) {
+      e.preventDefault()
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          this.signIn(values)
         }
       })
     },
-    async signIn () {
+    async signIn ({ username, password }) {
       const data = await this.handleLogin({
-        username: this.form.userName,
-        password: this.util.aesEncrypt(this.form.password)
+        username,
+        password: this.util.aesEncrypt(password)
       })
       if (data) {
         const info = await this.getUserInfo()
-        if (info) this.$router.push({name: 'index'})
+        if (info) this.$router.push({ name: 'index' })
       }
     }
-  },
-  components: {
-    Particle
   }
 }
 </script>
