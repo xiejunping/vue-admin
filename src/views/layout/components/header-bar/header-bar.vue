@@ -1,17 +1,18 @@
 <template>
-  <a-layout-header class="layout-header">
-    <a-menu mode="horizontal" :defaultSelectedKeys="currentModule" @on-select="changeMenu">
+  <Header class="layout-header">
+    <Menu mode="horizontal" theme="dark" :active-name="currentModule" @on-select="changeMenu">
       <div class="layout-logo"></div>
+
       <!-- 顶部菜单 -->
       <div class="layout-nav">
-        <a-menu-item v-for="(item, key) in list" :key="key" :name="item.name">
-          <a-icon :type="item.meta.icon"></a-icon>
+        <MenuItem v-for="(item, key) in list" :key="key" :name="item.name">
+          <Icon :type="item.meta.icon"></Icon>
           <span>{{item.meta.title}}</span>
-        </a-menu-item>
+        </MenuItem>
       </div>
       <slot name="profile"></slot>
-    </a-menu>
-  </a-layout-header>
+    </Menu>
+  </Header>
 </template>
 
 <script>
@@ -44,8 +45,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.layout-header
-  background #fefefe
 .layout-logo
   width: 100px
   height: 30px

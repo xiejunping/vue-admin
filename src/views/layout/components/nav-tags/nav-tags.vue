@@ -1,24 +1,24 @@
 <template>
   <div class="c-tags-nav">
     <div class="c-close-con">
-      <a-dropdown transfer @on-click="handleTagsOption">
-        <a-button type="text" size="small">
-          <a-icon :size="18" type="close-circle" />
-        </a-button>
-        <a-dropdown slot="list">
-          <!-- <DropdownItem name="close-all">关闭所有</DropdownItem>
-          <DropdownItem name="close-others">关闭其他</DropdownItem> -->
-        </a-dropdown>
-      </a-dropdown>
+      <Dropdown transfer @on-click="handleTagsOption">
+        <Button type="text" size="small">
+          <Icon :size="18" type="ios-close-circle-outline" />
+        </Button>
+        <DropdownMenu slot="list">
+          <DropdownItem name="close-all">关闭所有</DropdownItem>
+          <DropdownItem name="close-others">关闭其他</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
     </div>
     <div class="c-btn-con btn-left">
       <Button type="text" @click="handleScroll(240)">
-        <a-icon :size="18" type="left" />
+        <Icon :size="18" type="ios-arrow-back" />
       </Button>
     </div>
     <div class="c-btn-con btn-right">
       <Button type="text" @click="handleScroll(-240)">
-        <a-icon :size="18" type="right" />
+        <Icon :size="18" type="ios-arrow-forward" />
       </Button>
     </div>
     <div class="c-tag" ref="scrollOuter" @DOMMouseScroll="handlescroll" @mousewheel="handlescroll">
@@ -27,7 +27,7 @@
           <Tag
             type="dot"
             ref="tagsPageOpened"
-            class="c-nav"
+            :class="{'c-nav': true, 'c-nav-active': isCurrentTag(item)}"
             v-for="(item, index) in list"
             :key="`tag-nav-${index}`"
             :name="item.name"
@@ -212,10 +212,12 @@ export default {
     line-height 30px
     padding 0 10px
     margin-top 6px
-    background-color #ffffff
+    background-color #f8f8f8!important
     border-top-left-radius 4px
     border-top-right-radius 4px
     margin-right 5px
     &:first-child
       margin-left 5px
+    &.c-nav-active
+      background-color #ffffff!important
 </style>

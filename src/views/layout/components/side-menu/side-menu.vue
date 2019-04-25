@@ -1,34 +1,33 @@
 <template>
-  <a-menu
+  <Menu
     ref="leftMenu"
-    theme="dark"
-    mode="inline"
-    :inlineCollapsed="collapsed"
-    :defaultSelectedKeys="activeName"
-    :defaultOpenKeys="openNames"
-    :class="menuitemClasses"
+    theme="light"
+    width="auto"
+    :active-name="activeName"
     @on-select="turnToPage"
-    @on-open-change="changeOpen">
+    :open-names="openNames"
+    @on-open-change="changeOpen"
+    :class="menuitemClasses">
     <template v-for="item in menuList">
       <template v-if="item.children && item.children.length">
-        <a-sub-menu :name="getNameOrHref(item)" :key="`menu-${item.name}`">
+        <Submenu :name="getNameOrHref(item)" :key="`menu-${item.name}`">
           <template slot="title">
-            <a-icon :type="item.icon"></a-icon>
+            <Icon :type="item.icon"></Icon>
             <span>{{item.title}}</span>
           </template>
-          <a-menu-item v-for="(t, i) in item.children" :name="getNameOrHref(t)" :key="`menu-${item.name}-${i}`">
+          <MenuItem v-for="(t, i) in item.children" :name="getNameOrHref(t)" :key="`menu-${item.name}-${i}`">
             <span>{{t.title}}</span>
-          </a-menu-item>
-        </a-sub-menu>
+          </MenuItem>
+        </Submenu>
       </template>
       <template v-else>
-        <a-menu-item :name="getNameOrHref(item)" :key="`menu-${item.name}`">
-          <a-icon :type="item.icon" :key="`menu-${item.name}-icon`"></a-icon>
+        <MenuItem :name="getNameOrHref(item)" :key="`menu-${item.name}`">
+          <Icon :type="item.icon" :key="`menu-${item.name}-icon`"></Icon>
           <span :key="`menu-${item.name}-span`">{{item.title}}</span>
-        </a-menu-item>
+        </MenuItem>
       </template>
     </template>
-  </a-menu>
+  </Menu>
 </template>
 <script>
 import mixin from '../../mixin'

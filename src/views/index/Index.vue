@@ -116,12 +116,6 @@ import CheckItem from '@/components/mixcheck/check-item'
 import RadioItem from '@/components/mixcheck/radio-item'
 export default {
   name: 'Index',
-  components: {
-    CheckItem,
-    RadioItem,
-    Mixcheck,
-    CountUp
-  },
   data () {
     return {
       countSize: '40px',
@@ -134,6 +128,12 @@ export default {
       },
       network: ['UNION', 'MOBILE']
     }
+  },
+  components: {
+    CheckItem,
+    RadioItem,
+    Mixcheck,
+    CountUp
   },
   methods: {
     changeMix (val) {

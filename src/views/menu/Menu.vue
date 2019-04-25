@@ -256,7 +256,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "~@/assets/styles/mixin.styl"
+@import "~@/common/styles/mixin.styl"
 
 .c-menu
   $scroll()

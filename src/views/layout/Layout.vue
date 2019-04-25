@@ -1,27 +1,27 @@
 <template>
-  <a-layout class="layout">
+  <Layout class="layout">
     <!-- top -->
     <header-bar :list="topMenu">
       <div class="layout-profile" slot="profile">
         <full-screen v-model="isFullscreen" />
         <div class="message" @click="turnToPage('Message')">
-          <a-badge :count="3" :offset="[16, 0]">
-            <a-icon type="ios-notifications" color="white" size=26 />
-          </a-badge>
+          <Badge :count="3" :offset="[16, 0]">
+            <Icon type="ios-notifications" color="white" size=26 />
+          </Badge>
         </div>
         <Perfile />
       </div>
     </header-bar>
 
     <!-- main -->
-    <a-layout class="layout-content">
+    <Layout class="layout-content">
       <!-- left -->
-      <a-layout-sider class="layout-content-menu" v-model="collapsed" collapsible>
+      <Sider class="layout-content-menu" v-model="collapsed" collapsible>
         <side-menu :menu-list="menuList" :collapsed="collapsed"></side-menu>
-      </a-layout-sider>
+      </Sider>
 
       <!-- right -->
-      <a-layout class="layout-content-main">
+      <Layout class="layout-content-main">
         <!-- nav -->
         <nav-tags :value="$route" :list="tagNavList" @on-close="handleCloseTag"></nav-tags>
         <!-- 组件 -->
@@ -29,9 +29,9 @@
           <router-view/>
         </keep-alive>
 
-      </a-layout>
-    </a-layout>
-  </a-layout>
+      </Layout>
+    </Layout>
+  </Layout>
 </template>
 <script>
 import { mapMutations } from 'vuex'
@@ -117,6 +117,7 @@ export default {
   border-radius 4px
   overflow hidden
 .layout-content-menu
+  background #fff
   text-align left
 .layout-content-main
   min-width 824px
