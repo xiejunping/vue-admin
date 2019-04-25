@@ -1,30 +1,31 @@
 <template>
   <a-menu
     ref="leftMenu"
-    theme="light"
-    width="auto"
-    :active-name="activeName"
-    :open-names="openNames"
+    theme="dark"
+    mode="inline"
+    :inlineCollapsed="collapsed"
+    :defaultSelectedKeys="activeName"
+    :defaultOpenKeys="openNames"
     :class="menuitemClasses"
     @on-select="turnToPage"
     @on-open-change="changeOpen">
     <template v-for="item in menuList">
       <template v-if="item.children && item.children.length">
-        <Submenu :name="getNameOrHref(item)" :key="`menu-${item.name}`">
+        <a-sub-menu :name="getNameOrHref(item)" :key="`menu-${item.name}`">
           <template slot="title">
-            <Icon :type="item.icon"></Icon>
+            <a-icon :type="item.icon"></a-icon>
             <span>{{item.title}}</span>
           </template>
-          <MenuItem v-for="(t, i) in item.children" :name="getNameOrHref(t)" :key="`menu-${item.name}-${i}`">
+          <a-menu-item v-for="(t, i) in item.children" :name="getNameOrHref(t)" :key="`menu-${item.name}-${i}`">
             <span>{{t.title}}</span>
-          </MenuItem>
-        </Submenu>
+          </a-menu-item>
+        </a-sub-menu>
       </template>
       <template v-else>
-        <MenuItem :name="getNameOrHref(item)" :key="`menu-${item.name}`">
-          <Icon :type="item.icon" :key="`menu-${item.name}-icon`"></Icon>
+        <a-menu-item :name="getNameOrHref(item)" :key="`menu-${item.name}`">
+          <a-icon :type="item.icon" :key="`menu-${item.name}-icon`"></a-icon>
           <span :key="`menu-${item.name}-span`">{{item.title}}</span>
-        </MenuItem>
+        </a-menu-item>
       </template>
     </template>
   </a-menu>

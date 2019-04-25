@@ -2,9 +2,9 @@
   <div class="c-tags-nav">
     <div class="c-close-con">
       <a-dropdown transfer @on-click="handleTagsOption">
-        <Button type="text" size="small">
-          <Icon :size="18" type="ios-close-circle-outline" />
-        </Button>
+        <a-button type="text" size="small">
+          <a-icon :size="18" type="close-circle" />
+        </a-button>
         <a-dropdown slot="list">
           <!-- <DropdownItem name="close-all">关闭所有</DropdownItem>
           <DropdownItem name="close-others">关闭其他</DropdownItem> -->
@@ -13,12 +13,12 @@
     </div>
     <div class="c-btn-con btn-left">
       <Button type="text" @click="handleScroll(240)">
-        <Icon :size="18" type="ios-arrow-back" />
+        <a-icon :size="18" type="left" />
       </Button>
     </div>
     <div class="c-btn-con btn-right">
       <Button type="text" @click="handleScroll(-240)">
-        <Icon :size="18" type="ios-arrow-forward" />
+        <a-icon :size="18" type="right" />
       </Button>
     </div>
     <div class="c-tag" ref="scrollOuter" @DOMMouseScroll="handlescroll" @mousewheel="handlescroll">

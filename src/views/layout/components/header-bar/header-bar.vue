@@ -1,6 +1,6 @@
 <template>
   <a-layout-header class="layout-header">
-    <a-menu mode="horizontal" theme="dark" :defaultSelectedKeys="currentModule" @on-select="changeMenu">
+    <a-menu mode="horizontal" :defaultSelectedKeys="currentModule" @on-select="changeMenu">
       <div class="layout-logo"></div>
       <!-- 顶部菜单 -->
       <div class="layout-nav">
@@ -44,6 +44,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.layout-header
+  background #fefefe
 .layout-logo
   width: 100px
   height: 30px

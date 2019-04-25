@@ -5,9 +5,9 @@
       <div class="layout-profile" slot="profile">
         <full-screen v-model="isFullscreen" />
         <div class="message" @click="turnToPage('Message')">
-          <Badge :count="3" :offset="[16, 0]">
-            <Icon type="ios-notifications" color="white" size=26 />
-          </Badge>
+          <a-badge :count="3" :offset="[16, 0]">
+            <a-icon type="ios-notifications" color="white" size=26 />
+          </a-badge>
         </div>
         <Perfile />
       </div>
@@ -117,7 +117,6 @@ export default {
   border-radius 4px
   overflow hidden
 .layout-content-menu
-  background #fff
   text-align left
 .layout-content-main
   min-width 824px
