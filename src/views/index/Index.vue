@@ -105,6 +105,24 @@
         </mixcheck>
       </Col>
     </Row>
+
+    <Row :gutter="10">
+      <Col span="4">
+        <span>游戏</span>
+      </Col>
+      <Col span="18">
+        <AutoComplete
+          v-model="game_id"
+          transfer
+          clearable
+          icon="ios-arrow-down"
+          placeholder="placeholder"
+          style="width: 200px">
+          <Option v-for="item in data" :value="item.id" :key="item.id">{{ item.name }}</Option>
+        </AutoComplete>
+      </Col>
+    </Row>
+
   </div>
 
 </template>
@@ -126,7 +144,22 @@ export default {
         view: 385634,
         viewIP: 10987
       },
-      network: ['UNION', 'MOBILE']
+      network: ['UNION', 'MOBILE'],
+      game_id: 1,
+      data: [
+        {
+          id: 1,
+          name: '王者荣耀'
+        },
+        {
+          id: 2,
+          name: '吃鸡'
+        },
+        {
+          id: 3,
+          name: '欢乐斗地主'
+        }
+      ]
     }
   },
   components: {
