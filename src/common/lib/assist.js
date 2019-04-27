@@ -1,3 +1,11 @@
+export function oneOf (value, validList) {
+  for (let i = 0; i < validList.length; i++) {
+    if (value === validList[i]) {
+      return true
+    }
+  }
+  return false
+}
 
 // Find components upward
 function findComponentUpward (context, componentName, componentNames) {
@@ -66,4 +74,19 @@ export function findBrothersComponents (context, componentName, exceptMe = true)
   let index = res.findIndex(item => item._uid === context._uid)
   if (exceptMe) res.splice(index, 1)
   return res
+}
+
+// getStyle
+export function getStyle (element, styleName) {
+  if (!element || !styleName) return null
+  styleName = camelCase(styleName)
+  if (styleName === 'float') {
+    styleName = 'cssFloat'
+  }
+  try {
+    const computed = document.defaultView.getComputedStyle(element, '')
+    return element.style[styleName] || computed ? computed[styleName] : null
+  } catch(e) {
+    return element.style[styleName]
+  }
 }

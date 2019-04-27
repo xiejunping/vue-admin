@@ -1,5 +1,6 @@
 <template>
   <div class="hashboard">
+    <!--
     <Row :gutter="10">
       <Col span="6">
         <Card :padding="0">
@@ -105,21 +106,40 @@
         </mixcheck>
       </Col>
     </Row>
+    -->
 
-    <Row :gutter="10">
+    <Row :gutter="10" class="row-item">
       <Col span="4">
         <span>游戏</span>
       </Col>
       <Col span="18">
-        <AutoComplete
-          v-model="game_id"
+        <!-- <AutoComplete
+          v-model="game"
           transfer
           clearable
+          label="游戏"
           icon="ios-arrow-down"
           placeholder="placeholder"
-          style="width: 200px">
-          <Option v-for="item in data" :value="item.id" :key="item.id">{{ item.name }}</Option>
-        </AutoComplete>
+          style="width: 200px"
+          :filter-method="filterMethod">
+        </AutoComplete> -->
+        <AutoSelect
+          v-model="game_id"
+          :data="data"
+          placeholder="请输入游戏名称"
+          @on-select="changeGame"></AutoSelect>
+      </Col>
+    </Row>
+    <Row :gutter="10" class="row-item">
+      <Col span="4">
+        <span>游戏</span>
+      </Col>
+      <Col span="18">
+        <IconSelect
+          v-model="game"
+          :data="data"
+          placeholder="请选择图标名称"
+          @on-select="changeGame"></IconSelect>
       </Col>
     </Row>
 
@@ -132,6 +152,8 @@ import CountUp from '@/components/CountUp'
 import Mixcheck from '@/components/mixcheck'
 import CheckItem from '@/components/mixcheck/check-item'
 import RadioItem from '@/components/mixcheck/radio-item'
+import AutoSelect from '@/components/drop-select/auto-select'
+import IconSelect from '@/components/drop-select/icon-select'
 export default {
   name: 'Index',
   data () {
@@ -145,19 +167,28 @@ export default {
         viewIP: 10987
       },
       network: ['UNION', 'MOBILE'],
+      game: '王者荣耀',
       game_id: 1,
       data: [
         {
-          id: 1,
-          name: '王者荣耀'
+          value: 1,
+          label: '王者荣耀'
         },
         {
-          id: 2,
-          name: '吃鸡'
+          value: 2,
+          label: '吃鸡'
         },
         {
-          id: 3,
-          name: '欢乐斗地主'
+          value: 3,
+          label: '欢乐斗地主'
+        },
+        {
+          value: 4,
+          label: 'wangzherongyao'
+        },
+        {
+          value: 5,
+          label: 'rongyaowangzhe'
         }
       ]
     }
@@ -166,11 +197,28 @@ export default {
     CheckItem,
     RadioItem,
     Mixcheck,
+    AutoSelect,
+    IconSelect,
     CountUp
   },
   methods: {
     changeMix (val) {
       console.log(val)
+    },
+    filterMethod (value, option) {
+      if (typeof option === 'string') {
+        return option.toUpperCase().indexOf(value.toUpperCase()) !== -1
+      } else {
+        const { name } = option
+        if (typeof name === 'string') {
+          return name.toUpperCase().indexOf(value.toUpperCase()) !== -1
+        } else {
+          return false
+        }
+      }
+    },
+    changeGame (meta) {
+      console.log(meta)
     }
   }
 }
@@ -184,5 +232,8 @@ export default {
 
 .height-100
   height 100%
+
+.row-item
+  margin-top 12px
 
 </style>
